@@ -40,7 +40,9 @@ export function LatestReportCard({ repo }: LatestReportCardProps) {
           <div>
             <div className="mb-2 flex flex-wrap items-center gap-2.5">
               <Folder size={14} className="text-muted-foreground" />
-              <span className="mono text-[13px] text-foreground">{repo.name}</span>
+              <span className="mono text-[13px] text-foreground">
+                {repo.name}
+              </span>
               <Badge tone="outline" size="sm">
                 {repo.lang}
               </Badge>

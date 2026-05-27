@@ -48,10 +48,10 @@
   --code-num: #38bdf8;
   --code-punct: #71717a;
 
-  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.02) inset,
-    0 8px 24px -12px rgba(0, 0, 0, 0.6);
-  --shadow-pop: 0 24px 60px -20px rgba(0, 0, 0, 0.7),
-    0 8px 16px -8px rgba(0, 0, 0, 0.5);
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-pop:
+    0 24px 60px -20px rgba(0, 0, 0, 0.7), 0 8px 16px -8px rgba(0, 0, 0, 0.5);
 
   --grid: rgba(255, 255, 255, 0.035);
 
@@ -118,10 +118,11 @@
   --code-num: #0284c7;
   --code-punct: #6b7280;
 
-  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.6) inset,
-    0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -16px rgba(0, 0, 0, 0.08);
-  --shadow-pop: 0 24px 60px -20px rgba(0, 0, 0, 0.18),
-    0 8px 16px -8px rgba(0, 0, 0, 0.08);
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 24px -16px rgba(0, 0, 0, 0.08);
+  --shadow-pop:
+    0 24px 60px -20px rgba(0, 0, 0, 0.18), 0 8px 16px -8px rgba(0, 0, 0, 0.08);
 
   --grid: rgba(0, 0, 0, 0.04);
 
@@ -157,7 +158,11 @@ body {
   padding: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+  font-family:
+    var(--font-geist-sans),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
     sans-serif;
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
@@ -166,7 +171,8 @@ body {
 }
 
 .mono {
-  font-family: var(--font-geist-mono), ui-monospace, "JetBrains Mono", monospace;
+  font-family:
+    var(--font-geist-mono), ui-monospace, "JetBrains Mono", monospace;
   font-feature-settings: "ss01", "ss02";
 }
 

@@ -1,37 +1,36 @@
-"use client";
+"use client"
 
 import { Bolt, Check, Folder } from "lucide-react"
 import { useState } from "react"
 
 import { Badge } from "@/components/ui/badge"
-import { CodeBlock } from "@/components/ui/code-block";
-import { ProgressBar } from "@/components/ui/progress-bar";
+import { CodeBlock } from "@/components/ui/code-block"
+import { ProgressBar } from "@/components/ui/progress-bar"
 
-import { landingCopy } from "./copy";
-import type { LandingReportPreview } from "./mock-report";
+import { landingCopy } from "./copy"
+import type { LandingReportPreview } from "./mock-report"
 
 interface LandingReportPreviewSectionProps {
-  report: LandingReportPreview;
+  report: LandingReportPreview
 }
 
-type PreviewTab = "overview" | "clean" | "patterns";
+type PreviewTab = "overview" | "clean" | "patterns"
 
 export function LandingReportPreviewSection({
   report,
 }: LandingReportPreviewSectionProps) {
-  const { preview } = landingCopy;
-  const [tab, setTab] = useState<PreviewTab>("overview");
+  const { preview } = landingCopy
+  const [tab, setTab] = useState<PreviewTab>("overview")
 
   const tabs: { id: PreviewTab; label: string }[] = [
     { id: "overview", label: preview.tabs.overview },
     { id: "clean", label: preview.tabs.clean },
     { id: "patterns", label: preview.tabs.patterns },
-  ];
+  ]
 
   const activeDimension =
-    report.dimensions.find((d) => d.id === tab) ??
-    report.dimensions[0];
-  const repoPath = `${report.owner} / ${report.repo}`;
+    report.dimensions.find((d) => d.id === tab) ?? report.dimensions[0]
+  const repoPath = `${report.owner} / ${report.repo}`
 
   return (
     <section
@@ -61,9 +60,7 @@ export function LandingReportPreviewSection({
                 <div className="mono text-[13px] text-foreground">
                   {repoPath}
                 </div>
-                <div className="text-xs text-dim">
-                  {report.generatedAt}
-                </div>
+                <div className="text-xs text-dim">{report.generatedAt}</div>
               </div>
             </div>
             <Badge tone="accent" icon={Check}>
@@ -92,9 +89,7 @@ export function LandingReportPreviewSection({
           <div
             className={[
               "grid gap-6 p-6",
-              tab === "overview"
-                ? "md:grid-cols-2"
-                : "md:grid-cols-2",
+              tab === "overview" ? "md:grid-cols-2" : "md:grid-cols-2",
             ].join(" ")}
           >
             {tab === "overview" ? (
@@ -108,10 +103,7 @@ export function LandingReportPreviewSection({
                   </p>
                   <div className="mt-5 flex flex-col gap-3">
                     {report.dimensions.map((dim) => (
-                      <div
-                        key={dim.id}
-                        className="flex items-center gap-3"
-                      >
+                      <div key={dim.id} className="flex items-center gap-3">
                         <span className="w-[130px] shrink-0 text-[13px] text-muted-foreground">
                           {dim.label}
                         </span>
@@ -140,10 +132,7 @@ export function LandingReportPreviewSection({
                   </p>
                   <div className="mt-4 flex flex-col gap-3">
                     {activeDimension.positives.map((item) => (
-                      <div
-                        key={item.h}
-                        className="flex items-start gap-2.5"
-                      >
+                      <div key={item.h} className="flex items-start gap-2.5">
                         <Check
                           size={14}
                           className="mt-0.5 shrink-0 text-primary"
@@ -154,14 +143,8 @@ export function LandingReportPreviewSection({
                       </div>
                     ))}
                     {activeDimension.improvements.map((item) => (
-                      <div
-                        key={item.h}
-                        className="flex items-start gap-2.5"
-                      >
-                        <Bolt
-                          size={14}
-                          className="mt-0.5 shrink-0 text-warn"
-                        />
+                      <div key={item.h} className="flex items-start gap-2.5">
+                        <Bolt size={14} className="mt-0.5 shrink-0 text-warn" />
                         <span className="text-[13.5px] text-foreground">
                           {item.h}
                         </span>
@@ -181,5 +164,5 @@ export function LandingReportPreviewSection({
         </div>
       </div>
     </section>
-  );
+  )
 }

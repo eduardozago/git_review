@@ -149,10 +149,7 @@ export function CodeBlock({
 
       {comment && (
         <div className="flex items-start gap-2.5 border-t border-border bg-card px-3.5 py-2.5 text-[13px] text-muted-foreground">
-          <Sparkles
-            size={14}
-            className="mt-0.5 shrink-0 text-plum"
-          />
+          <Sparkles size={14} className="mt-0.5 shrink-0 text-plum" />
           <span>{comment}</span>
         </div>
       )}

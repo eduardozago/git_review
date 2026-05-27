@@ -9,23 +9,16 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: "border-transparent bg-primary text-primary-foreground",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground",
-        destructive:
-          "border-transparent bg-destructive/10 text-destructive",
+        secondary: "border-transparent bg-secondary text-secondary-foreground",
+        destructive: "border-transparent bg-destructive/10 text-destructive",
         outline: "border-border bg-transparent text-muted-foreground",
-        neutral:
-          "border-border bg-muted text-muted-foreground",
-        accent:
-          "border-transparent bg-accent-soft text-accent",
-        plum:
-          "border-transparent bg-plum-soft text-plum",
+        neutral: "border-border bg-muted text-muted-foreground",
+        accent: "border-transparent bg-accent-soft text-accent",
+        plum: "border-transparent bg-plum-soft text-plum",
         warn: "border-transparent bg-warn-soft text-warn",
-        danger:
-          "border-transparent bg-danger-soft text-destructive",
+        danger: "border-transparent bg-danger-soft text-destructive",
         info: "border-transparent bg-info-soft text-info",
-        ghost:
-          "border-transparent hover:bg-muted hover:text-muted-foreground",
+        ghost: "border-transparent hover:bg-muted hover:text-muted-foreground",
         link: "border-transparent text-primary underline-offset-4 hover:underline",
       },
       size: {
@@ -44,8 +37,7 @@ const badgeVariants = cva(
 type BadgeVariant = VariantProps<typeof badgeVariants>["variant"]
 
 interface BadgeProps
-  extends React.ComponentProps<"span">,
-    VariantProps<typeof badgeVariants> {
+  extends React.ComponentProps<"span">, VariantProps<typeof badgeVariants> {
   tone?: BadgeVariant
   icon?: LucideIcon
 }
@@ -65,7 +57,10 @@ function Badge({
     <span
       data-slot="badge"
       data-variant={resolvedVariant}
-      className={cn(badgeVariants({ variant: resolvedVariant, size }), className)}
+      className={cn(
+        badgeVariants({ variant: resolvedVariant, size }),
+        className
+      )}
       {...props}
     >
       {Icon && <Icon />}

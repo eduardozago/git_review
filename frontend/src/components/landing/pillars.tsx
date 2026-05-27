@@ -14,7 +14,10 @@ export function LandingPillars() {
   const { pillars } = landingCopy
 
   return (
-    <section id="pillars" className="border-t border-border px-6 py-24 md:px-8 md:py-28">
+    <section
+      id="pillars"
+      className="border-t border-border px-6 py-24 md:px-8 md:py-28"
+    >
       <div className="mx-auto max-w-[1100px]">
         <div className="mb-14 max-w-[720px]">
           <p className="mono m-0 text-xs tracking-wide text-primary uppercase">

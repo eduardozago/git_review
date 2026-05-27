@@ -55,16 +55,12 @@ export function LandingHero({ report }: LandingHeroProps) {
           </Button>
         </div>
 
-        <p className="mt-3.5 text-[13px] text-dim">
-          {hero.ctaSub}
-        </p>
+        <p className="mt-3.5 text-[13px] text-dim">{hero.ctaSub}</p>
 
         <div className="mt-14 flex flex-wrap items-center justify-center gap-7 text-[13px] text-muted-foreground">
           {hero.meta.map((item, index) => (
             <span key={item} className="flex items-center gap-2">
-              {index > 0 && (
-                <span className="size-1 rounded-full bg-dim" />
-              )}
+              {index > 0 && <span className="size-1 rounded-full bg-dim" />}
               {index === 0 && (
                 <span className="size-1 rounded-full bg-primary" />
               )}

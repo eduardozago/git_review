@@ -19,10 +19,7 @@ export function HeroPreviewCard({ report }: HeroPreviewCardProps) {
       <div className="flex items-center gap-2.5 border-b border-border bg-elev px-4 py-3">
         <div className="flex gap-1.5">
           {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className="size-2.5 rounded-full bg-faint"
-            />
+            <span key={i} className="size-2.5 rounded-full bg-faint" />
           ))}
         </div>
         <div className="mono flex-1 text-center text-xs text-muted-foreground">

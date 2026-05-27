@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { GitHubIcon } from "@/components/ui/github-icon";
-import { Logo } from "@/components/ui/logo";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Button } from "@/components/ui/button"
+import { GitHubIcon } from "@/components/ui/github-icon"
+import { Logo } from "@/components/ui/logo"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 
-import { landingCopy } from "./copy";
+import { landingCopy } from "./copy"
 
 export function LandingNavbar() {
-  const { nav, hero } = landingCopy;
+  const { nav, hero } = landingCopy
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-md backdrop-saturate-150">
@@ -20,10 +20,7 @@ export function LandingNavbar() {
             >
               {nav.pillars}
             </a>
-            <a
-              href="#how"
-              className="transition-colors hover:text-foreground"
-            >
+            <a href="#how" className="transition-colors hover:text-foreground">
               {nav.how}
             </a>
             <a
@@ -43,5 +40,5 @@ export function LandingNavbar() {
         </div>
       </div>
     </header>
-  );
+  )
 }

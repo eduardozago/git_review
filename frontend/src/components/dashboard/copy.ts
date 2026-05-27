@@ -23,4 +23,4 @@ export const dashboardCopy = {
     senior: "Senior",
     architect: "Architect",
   },
-} as const;
+} as const

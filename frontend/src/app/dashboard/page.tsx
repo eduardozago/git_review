@@ -1,22 +1,22 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"
 
-import { DashboardHeader } from "@/components/dashboard/dashboard-header";
-import { dashboardCopy } from "@/components/dashboard/copy";
-import { LatestReportCard } from "@/components/dashboard/latest-report-card";
-import { RecentAnalyses } from "@/components/dashboard/recent-analyses";
-import { SectionHeader } from "@/components/dashboard/section-header";
-import { StatsStrip } from "@/components/dashboard/stats-strip";
-import { getDashboardData } from "@/lib/mock/dashboard";
+import { DashboardHeader } from "@/components/dashboard/dashboard-header"
+import { dashboardCopy } from "@/components/dashboard/copy"
+import { LatestReportCard } from "@/components/dashboard/latest-report-card"
+import { RecentAnalyses } from "@/components/dashboard/recent-analyses"
+import { SectionHeader } from "@/components/dashboard/section-header"
+import { StatsStrip } from "@/components/dashboard/stats-strip"
+import { getDashboardData } from "@/lib/mock/dashboard"
 
 export const metadata: Metadata = {
   title: "Dashboard — GitReview",
   description: "Your recent repository analyses and scores.",
-};
+}
 
 export default function DashboardPage() {
-  const { user, analyzedRepos, stats } = getDashboardData();
-  const latest = analyzedRepos[0];
-  const recent = analyzedRepos.slice(1);
+  const { user, analyzedRepos, stats } = getDashboardData()
+  const latest = analyzedRepos[0]
+  const recent = analyzedRepos.slice(1)
 
   return (
     <div className="min-h-screen bg-background">
@@ -29,9 +29,7 @@ export default function DashboardPage() {
           </p>
           <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-strong">
             {user.name}{" "}
-            <span className="font-normal text-dim">
-              · @{user.username}
-            </span>
+            <span className="font-normal text-dim">· @{user.username}</span>
           </h1>
         </div>
 
@@ -47,5 +45,5 @@ export default function DashboardPage() {
         <RecentAnalyses repos={recent} />
       </main>
     </div>
-  );
+  )
 }

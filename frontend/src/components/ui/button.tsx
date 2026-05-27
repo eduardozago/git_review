@@ -10,16 +10,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground hover:bg-accent-hover",
-        primary:
-          "bg-primary text-primary-foreground hover:bg-accent-hover",
+        default: "bg-primary text-primary-foreground hover:bg-accent-hover",
+        primary: "bg-primary text-primary-foreground hover:bg-accent-hover",
         secondary:
           "border-border bg-card text-foreground hover:bg-surface-hover",
         ghost:
           "bg-transparent text-muted-foreground hover:bg-transparent hover:text-foreground",
-        plum:
-          "bg-plum-soft text-plum hover:opacity-90",
+        plum: "bg-plum-soft text-plum hover:opacity-90",
         danger:
           "border-border bg-transparent text-destructive hover:bg-destructive/10",
         outline:
@@ -50,7 +47,8 @@ const buttonVariants = cva(
 )
 
 interface ButtonProps
-  extends Omit<ButtonPrimitive.Props, "color">,
+  extends
+    Omit<ButtonPrimitive.Props, "color">,
     VariantProps<typeof buttonVariants> {
   href?: string
   icon?: LucideIcon

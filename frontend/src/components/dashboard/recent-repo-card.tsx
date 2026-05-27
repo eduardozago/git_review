@@ -1,22 +1,22 @@
-import Link from "next/link";
-import { Folder } from "lucide-react";
+import Link from "next/link"
+import { Folder } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { ProgressBar } from "@/components/ui/progress-bar";
-import { getScoreLevel } from "@/lib/score-level";
-import type { AnalyzedRepo } from "@/lib/types/repo";
+import { Badge } from "@/components/ui/badge"
+import { Card } from "@/components/ui/card"
+import { ProgressBar } from "@/components/ui/progress-bar"
+import { getScoreLevel } from "@/lib/score-level"
+import type { AnalyzedRepo } from "@/lib/types/repo"
 
-import { dashboardCopy } from "./copy";
-import { LangPill } from "./lang-pill";
+import { dashboardCopy } from "./copy"
+import { LangPill } from "./lang-pill"
 
 interface RecentRepoCardProps {
-  repo: AnalyzedRepo;
+  repo: AnalyzedRepo
 }
 
 export function RecentRepoCard({ repo }: RecentRepoCardProps) {
-  const level = getScoreLevel(repo.score);
-  const levelLabel = dashboardCopy.levels[level.key];
+  const level = getScoreLevel(repo.score)
+  const levelLabel = dashboardCopy.levels[level.key]
 
   return (
     <Link href={`/report/${repo.id}`} className="block">
@@ -48,5 +48,5 @@ export function RecentRepoCard({ repo }: RecentRepoCardProps) {
         </div>
       </Card>
     </Link>
-  );
+  )
 }

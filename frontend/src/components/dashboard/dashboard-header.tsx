@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { LogOut, Plus } from "lucide-react";
+import Link from "next/link"
+import { LogOut, Plus } from "lucide-react"
 
-import { Button } from "@/components/ui/button";
-import { InitialAvatar } from "@/components/ui/initial-avatar";
-import { Logo } from "@/components/ui/logo";
+import { Button } from "@/components/ui/button"
+import { InitialAvatar } from "@/components/ui/initial-avatar"
+import { Logo } from "@/components/ui/logo"
 
-import { dashboardCopy } from "./copy";
+import { dashboardCopy } from "./copy"
 
 interface DashboardHeaderProps {
-  username: string;
+  username: string
 }
 
 export function DashboardHeader({ username }: DashboardHeaderProps) {
@@ -41,5 +41,5 @@ export function DashboardHeader({ username }: DashboardHeaderProps) {
         </div>
       </div>
     </header>
-  );
+  )
 }

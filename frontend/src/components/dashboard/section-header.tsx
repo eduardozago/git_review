@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from "react"
 
 interface SectionHeaderProps {
-  title: string;
-  action?: ReactNode;
+  title: string
+  action?: ReactNode
 }
 
 export function SectionHeader({ title, action }: SectionHeaderProps) {
@@ -13,5 +13,5 @@ export function SectionHeader({ title, action }: SectionHeaderProps) {
       </h2>
       {action}
     </div>
-  );
+  )
 }

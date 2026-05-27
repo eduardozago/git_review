@@ -36,7 +36,9 @@ export function PermissionsPanel() {
           {scope.denied.map((item) => (
             <li key={item} className="flex items-start gap-3">
               <X size={14} className="mt-0.5 shrink-0 text-dim" />
-              <span className="text-[13.5px] text-muted-foreground">{item}</span>
+              <span className="text-[13.5px] text-muted-foreground">
+                {item}
+              </span>
             </li>
           ))}
         </ul>

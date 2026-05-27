@@ -1,13 +1,13 @@
-import type { DashboardStats } from "@/lib/mock/dashboard";
+import type { DashboardStats } from "@/lib/mock/dashboard"
 
-import { dashboardCopy } from "./copy";
+import { dashboardCopy } from "./copy"
 
 interface StatsStripProps {
-  stats: DashboardStats;
+  stats: DashboardStats
 }
 
 export function StatsStrip({ stats }: StatsStripProps) {
-  const { stats: labels } = dashboardCopy;
+  const { stats: labels } = dashboardCopy
 
   const items = [
     {
@@ -30,7 +30,7 @@ export function StatsStrip({ stats }: StatsStripProps) {
       value: stats.daysAnalyzed,
       hint: labels.thisMonth,
     },
-  ];
+  ]
 
   return (
     <div className="mb-10 grid grid-cols-2 overflow-hidden rounded-xl border border-border bg-card lg:grid-cols-4">
@@ -58,5 +58,5 @@ export function StatsStrip({ stats }: StatsStripProps) {
         </div>
       ))}
     </div>
-  );
+  )
 }

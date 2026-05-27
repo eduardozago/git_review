@@ -1,15 +1,15 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react"
 
-import { Button } from "@/components/ui/button";
-import type { AnalyzedRepo } from "@/lib/types/repo";
+import { Button } from "@/components/ui/button"
+import type { AnalyzedRepo } from "@/lib/types/repo"
 
-import { dashboardCopy } from "./copy";
-import { NewAnalysisCard } from "./new-analysis-card";
-import { RecentRepoCard } from "./recent-repo-card";
-import { SectionHeader } from "./section-header";
+import { dashboardCopy } from "./copy"
+import { NewAnalysisCard } from "./new-analysis-card"
+import { RecentRepoCard } from "./recent-repo-card"
+import { SectionHeader } from "./section-header"
 
 interface RecentAnalysesProps {
-  repos: AnalyzedRepo[];
+  repos: AnalyzedRepo[]
 }
 
 export function RecentAnalyses({ repos }: RecentAnalysesProps) {
@@ -31,5 +31,5 @@ export function RecentAnalyses({ repos }: RecentAnalysesProps) {
         <NewAnalysisCard />
       </div>
     </section>
-  );
+  )
 }

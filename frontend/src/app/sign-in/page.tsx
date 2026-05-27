@@ -5,7 +5,8 @@ import { SignInPanel } from "@/components/sign-in/sign-in-panel"
 
 export const metadata: Metadata = {
   title: "Sign in — GitReview",
-  description: "Connect your GitHub account with read-only access to analyze public repositories.",
+  description:
+    "Connect your GitHub account with read-only access to analyze public repositories.",
 }
 
 export default function SignInPage() {
