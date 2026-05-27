@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "GitReview — Análise de portfólio com IA",
+  title: "GitReview — AI portfolio code review",
   description:
-    "Veja seu repositório como um revisor sênior veria — nota, dimensões e recomendações acionáveis.",
+    "See your repository the way a senior reviewer would — score, dimension breakdowns, and actionable recommendations.",
 }
 
 const themeInitScript = `(() => {
@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="pt-BR"
+      lang="en"
       data-theme={DEFAULT_THEME}
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}

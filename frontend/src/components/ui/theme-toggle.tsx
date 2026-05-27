@@ -64,19 +64,19 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         className
       )}
       role="group"
-      aria-label="Tema da interface"
+      aria-label="Interface theme"
     >
       <SegButton
         active={theme === "light"}
         onClick={() => select("light")}
-        title="Modo claro"
+        title="Light mode"
       >
         <Sun size={14} />
       </SegButton>
       <SegButton
         active={theme === "dark"}
         onClick={() => select("dark")}
-        title="Modo escuro"
+        title="Dark mode"
       >
         <Moon size={14} />
       </SegButton>
