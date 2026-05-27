@@ -37,16 +37,16 @@ export function LandingReportPreviewSection({
       id="preview"
       className="border-t border-border bg-elev px-6 py-24 md:px-8 md:py-28"
     >
-      <div className="mx-auto max-w-[1100px]">
+      <div className="mx-auto max-w-275">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-[640px]">
+          <div className="max-w-160">
             <p className="mono m-0 text-xs tracking-wide text-primary uppercase">
               {preview.eyebrow}
             </p>
-            <h2 className="mt-3 text-balance text-[clamp(28px,4vw,36px)] font-semibold tracking-[-0.04em] text-strong">
+            <h2 className="mt-3 text-balance text-3xl md:text-4xl font-semibold tracking-tight text-strong">
               {preview.heading}
             </h2>
-            <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-3 text-3.75 leading-relaxed text-muted-foreground">
               {preview.sub}
             </p>
           </div>
@@ -57,9 +57,7 @@ export function LandingReportPreviewSection({
             <div className="flex items-center gap-3">
               <Folder size={16} className="text-muted-foreground" />
               <div>
-                <div className="mono text-[13px] text-foreground">
-                  {repoPath}
-                </div>
+                <div className="mono text-3.25 text-foreground">{repoPath}</div>
                 <div className="text-xs text-dim">{report.generatedAt}</div>
               </div>
             </div>
@@ -75,7 +73,7 @@ export function LandingReportPreviewSection({
                 type="button"
                 onClick={() => setTab(item.id)}
                 className={[
-                  "-mb-px border-b-2 px-4 py-3 text-[13.5px] font-medium transition-colors",
+                  "-mb-px border-b-2 px-4 py-3 text-sm font-medium transition-colors",
                   tab === item.id
                     ? "border-primary text-strong"
                     : "border-transparent text-muted-foreground hover:text-foreground",
@@ -98,13 +96,13 @@ export function LandingReportPreviewSection({
                   <div className="mono text-xs tracking-wide text-dim uppercase">
                     {preview.summary}
                   </div>
-                  <p className="mt-3 text-pretty text-[15px] leading-relaxed text-foreground">
+                  <p className="mt-3 text-pretty text-3.75 leading-relaxed text-foreground">
                     {preview.summaryBlurb}
                   </p>
                   <div className="mt-5 flex flex-col gap-3">
                     {report.dimensions.map((dim) => (
                       <div key={dim.id} className="flex items-center gap-3">
-                        <span className="w-[130px] shrink-0 text-[13px] text-muted-foreground">
+                        <span className="w-32.5 shrink-0 text-3.25 text-muted-foreground">
                           {dim.label}
                         </span>
                         <div className="min-w-0 flex-1">
@@ -127,7 +125,7 @@ export function LandingReportPreviewSection({
             ) : (
               <>
                 <div>
-                  <p className="mt-0 text-[14.5px] leading-relaxed text-muted-foreground">
+                  <p className="mt-0 text-sm leading-relaxed text-muted-foreground">
                     {activeDimension.tagline}
                   </p>
                   <div className="mt-4 flex flex-col gap-3">
@@ -137,7 +135,7 @@ export function LandingReportPreviewSection({
                           size={14}
                           className="mt-0.5 shrink-0 text-primary"
                         />
-                        <span className="text-[13.5px] text-foreground">
+                        <span className="text-sm text-foreground">
                           {item.h}
                         </span>
                       </div>
@@ -145,7 +143,7 @@ export function LandingReportPreviewSection({
                     {activeDimension.improvements.map((item) => (
                       <div key={item.h} className="flex items-start gap-2.5">
                         <Bolt size={14} className="mt-0.5 shrink-0 text-warn" />
-                        <span className="text-[13.5px] text-foreground">
+                        <span className="text-sm text-foreground">
                           {item.h}
                         </span>
                       </div>

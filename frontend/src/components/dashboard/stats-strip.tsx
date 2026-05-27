@@ -44,11 +44,11 @@ export function StatsStrip({ stats }: StatsStripProps) {
             index >= 2 ? "border-t lg:border-t-0" : "",
           ].join(" ")}
         >
-          <div className="mono text-[11px] tracking-wide text-dim uppercase">
+          <div className="mono text-2.75 tracking-wide text-dim uppercase">
             {item.label}
           </div>
           <div className="mt-2.5 flex items-baseline gap-1.5">
-            <span className="text-[28px] font-semibold tracking-tight text-strong">
+            <span className="text-7 font-semibold tracking-tight text-strong">
               {item.value}
             </span>
             <span className="mono text-xs whitespace-nowrap text-dim">

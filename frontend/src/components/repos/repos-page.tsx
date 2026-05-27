@@ -42,18 +42,18 @@ export function ReposPage() {
     <div className="min-h-screen bg-background">
       <ReposHeader selectedId={selectedId} />
 
-      <main className="mx-auto max-w-[1100px] px-6 py-12 pb-20 md:px-8">
+      <main className="mx-auto max-w-275 px-6 py-12 pb-20 md:px-8">
         <div className="mb-7">
-          <h1 className="text-[32px] font-semibold tracking-tight text-strong">
+          <h1 className="text-8 font-semibold tracking-tight text-strong">
             {reposCopy.heading}
           </h1>
-          <p className="mt-2.5 text-[15px] text-muted-foreground">
+          <p className="mt-2.5 text-3.75 text-muted-foreground">
             {reposCopy.sub}
           </p>
         </div>
 
         <div className="mb-4 grid gap-2.5 md:grid-cols-[1fr_auto_auto]">
-          <div className="flex h-10 items-center gap-2 rounded-[10px] border border-border bg-card px-3">
+          <div className="flex h-10 items-center gap-2 rounded-2.5 border border-border bg-card px-3">
             <Search size={14} className="shrink-0 text-dim" />
             <Input
               value={query}
@@ -70,7 +70,7 @@ export function ReposPage() {
             value={langFilter}
             onValueChange={(value) => setLangFilter(value as string)}
           >
-            <SelectTrigger className="h-10 min-w-[160px] w-full bg-card md:w-auto">
+            <SelectTrigger className="h-10 min-w-40 w-full bg-card md:w-auto">
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">
@@ -87,7 +87,7 @@ export function ReposPage() {
             value={sort}
             onValueChange={(value) => setSort(value as RepoSort)}
           >
-            <SelectTrigger className="h-10 min-w-[160px] w-full bg-card md:w-auto">
+            <SelectTrigger className="h-10 min-w-40 w-full bg-card md:w-auto">
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">

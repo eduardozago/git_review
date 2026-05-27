@@ -113,7 +113,7 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-[10px] border border-border bg-code-bg text-[13px]",
+        "overflow-hidden rounded-2.5 border border-border bg-code-bg text-3.25",
         className
       )}
     >
@@ -125,7 +125,7 @@ export function CodeBlock({
               {file}
             </div>
           )}
-          <div className="mono text-[11px] text-dim">
+          <div className="mono text-2.75 text-dim">
             L{startLine}–L{startLine + lines.length - 1}
           </div>
         </div>
@@ -135,7 +135,7 @@ export function CodeBlock({
         {lines.map((line, index) => (
           <div
             key={`${startLine + index}-${line}`}
-            className="grid grid-cols-[44px_1fr] leading-[1.6]"
+            className="grid grid-cols-[11_1fr] leading-[1.6]"
           >
             <span className="select-none pr-3.5 text-right text-faint">
               {startLine + index}
@@ -148,7 +148,7 @@ export function CodeBlock({
       </div>
 
       {comment && (
-        <div className="flex items-start gap-2.5 border-t border-border bg-card px-3.5 py-2.5 text-[13px] text-muted-foreground">
+        <div className="flex items-start gap-2.5 border-t border-border bg-card px-3.5 py-2.5 text-3.25 text-muted-foreground">
           <Sparkles size={14} className="mt-0.5 shrink-0 text-plum" />
           <span>{comment}</span>
         </div>

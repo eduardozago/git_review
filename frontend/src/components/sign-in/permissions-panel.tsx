@@ -6,8 +6,8 @@ export function PermissionsPanel() {
   const { scope } = signInCopy
 
   return (
-    <div className="flex min-h-[280px] flex-col justify-center border-t border-border bg-elev px-6 py-10 md:min-h-screen md:border-t-0 md:border-l md:px-12 lg:px-14">
-      <div className="mx-auto w-full max-w-[440px]">
+    <div className="flex min-h-70 flex-col justify-center border-t border-border bg-elev px-6 py-10 md:min-h-screen md:border-t-0 md:border-l md:px-12 lg:px-14">
+      <div className="mx-auto w-full max-w-110">
         <div className="mb-5 flex items-center gap-2.5">
           <Shield size={18} className="text-primary" />
           <span className="mono text-xs tracking-wide text-primary uppercase">
@@ -15,7 +15,7 @@ export function PermissionsPanel() {
           </span>
         </div>
 
-        <h2 className="text-[22px] font-semibold tracking-tight text-strong">
+        <h2 className="text-5.5 font-semibold tracking-tight text-strong">
           {scope.allowedHeading}
         </h2>
         <ul className="mt-4 flex flex-col gap-3">
@@ -36,9 +36,7 @@ export function PermissionsPanel() {
           {scope.denied.map((item) => (
             <li key={item} className="flex items-start gap-3">
               <X size={14} className="mt-0.5 shrink-0 text-dim" />
-              <span className="text-[13.5px] text-muted-foreground">
-                {item}
-              </span>
+              <span className="text-sm text-muted-foreground">{item}</span>
             </li>
           ))}
         </ul>

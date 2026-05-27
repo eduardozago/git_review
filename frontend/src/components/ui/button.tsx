@@ -27,10 +27,10 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-9 px-3.5 text-sm",
-        sm: "h-[30px] px-2.5 text-[13px] [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-11 px-5 text-[15px] [&_svg:not([class*='size-'])]:size-[18px]",
+        sm: "h-7.5 px-2.5 text-3.25 [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-11 px-5 text-3.75 [&_svg:not([class*='size-'])]:size-4.5",
         icon: "size-9",
-        "icon-sm": "size-[30px]",
+        "icon-sm": "size-7.5",
         "icon-lg": "size-11",
       },
       full: {

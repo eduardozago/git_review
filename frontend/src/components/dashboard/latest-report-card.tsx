@@ -18,14 +18,14 @@ export function LatestReportCard({ repo }: LatestReportCardProps) {
 
   return (
     <Card className="gap-0 overflow-hidden p-0">
-      <div className="grid min-h-[200px] md:grid-cols-[260px_1fr]">
+      <div className="grid min-h-50 md:grid-cols-[65_1fr]">
         <div className="flex flex-col justify-between border-b border-border bg-elev p-7 md:border-r md:border-b-0">
-          <div className="mono text-[11px] tracking-wide text-dim uppercase">
+          <div className="mono text-2.75 tracking-wide text-dim uppercase">
             {dashboardCopy.overallScore}
           </div>
           <div>
             <div className="flex items-baseline gap-1">
-              <span className="text-[88px] leading-[0.95] font-semibold tracking-[-0.08em] text-strong">
+              <span className="text-22 leading-[0.95] font-semibold tracking-tighter text-strong">
                 {repo.score}
               </span>
               <span className="mono text-sm text-dim">/100</span>
@@ -40,14 +40,14 @@ export function LatestReportCard({ repo }: LatestReportCardProps) {
           <div>
             <div className="mb-2 flex flex-wrap items-center gap-2.5">
               <Folder size={14} className="text-muted-foreground" />
-              <span className="mono text-[13px] text-foreground">
+              <span className="mono text-3.25 text-foreground">
                 {repo.name}
               </span>
               <Badge tone="outline" size="sm">
                 {repo.lang}
               </Badge>
             </div>
-            <p className="mt-2 max-w-[520px] text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-2 max-w-130 text-sm leading-relaxed text-muted-foreground">
               {repo.description}
             </p>
           </div>

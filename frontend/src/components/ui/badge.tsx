@@ -22,9 +22,9 @@ const badgeVariants = cva(
         link: "border-transparent text-primary underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-5 px-1.5 text-[11px] [&>svg]:size-2.5",
+        sm: "h-5 px-1.5 text-2.75 [&>svg]:size-2.5",
         default: "h-6 px-2 text-xs",
-        lg: "h-7 px-2.5 text-[13px]",
+        lg: "h-7 px-2.5 text-3.25",
       },
     },
     defaultVariants: {

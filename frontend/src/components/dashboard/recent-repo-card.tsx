@@ -24,7 +24,7 @@ export function RecentRepoCard({ repo }: RecentRepoCardProps) {
         <div className="mb-3.5 flex items-center justify-between gap-2">
           <div className="flex min-w-0 items-center gap-2">
             <Folder size={14} className="shrink-0 text-dim" />
-            <span className="mono truncate text-[13px] text-foreground">
+            <span className="mono truncate text-3.25 text-foreground">
               {repo.name}
             </span>
           </div>
@@ -34,7 +34,7 @@ export function RecentRepoCard({ repo }: RecentRepoCardProps) {
         </div>
 
         <div className="mb-4 flex items-baseline gap-1">
-          <span className="text-[36px] leading-[0.95] font-semibold tracking-[-0.06em] text-strong">
+          <span className="text-9 leading-[0.95] font-semibold tracking-tighter text-strong">
             {repo.score}
           </span>
           <span className="mono text-xs text-dim">/100</span>

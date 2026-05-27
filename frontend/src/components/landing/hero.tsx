@@ -23,24 +23,24 @@ export function LandingHero({ report }: LandingHeroProps) {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] bg-size-[48px_48px] mask-[radial-gradient(ellipse_60%_50%_at_50%_30%,black_0%,transparent_75%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] bg-size-12 mask-[radial-gradient(ellipse_60%_50%_at_50%_30%,black_0%,transparent_75%)]"
       />
 
-      <div className="relative mx-auto max-w-[1100px] text-center">
+      <div className="relative mx-auto max-w-275 text-center">
         <Badge tone="outline" size="lg" className="mb-7">
           <Sparkles size={12} />
-          <span className="mono text-[11px] tracking-wide uppercase">
+          <span className="mono text-2.75 tracking-wide uppercase">
             {hero.eyebrow}
           </span>
         </Badge>
 
-        <h1 className="text-balance text-[clamp(40px,6vw,76px)] font-semibold leading-[1.02] tracking-[-0.06em] text-strong">
+        <h1 className="text-balance text-4xl sm:text-5xl lg:text-7xl font-semibold leading-[1.02] tracking-tighter text-strong">
           {hero.h1a}
           <br />
           <span className="text-muted-foreground">{hero.h1b}</span>
         </h1>
 
-        <p className="mx-auto mt-7 max-w-[640px] text-pretty text-lg leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-7 max-w-160 text-pretty text-lg leading-relaxed text-muted-foreground">
           {hero.sub}
         </p>
 
@@ -55,9 +55,9 @@ export function LandingHero({ report }: LandingHeroProps) {
           </Button>
         </div>
 
-        <p className="mt-3.5 text-[13px] text-dim">{hero.ctaSub}</p>
+        <p className="mt-3.5 text-3.25 text-dim">{hero.ctaSub}</p>
 
-        <div className="mt-14 flex flex-wrap items-center justify-center gap-7 text-[13px] text-muted-foreground">
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-7 text-3.25 text-muted-foreground">
           {hero.meta.map((item, index) => (
             <span key={item} className="flex items-center gap-2">
               {index > 0 && <span className="size-1 rounded-full bg-dim" />}
@@ -70,7 +70,7 @@ export function LandingHero({ report }: LandingHeroProps) {
         </div>
       </div>
 
-      <div className="relative mx-auto mt-16 max-w-[980px] md:mt-20">
+      <div className="relative mx-auto mt-16 max-w-245 md:mt-20">
         <HeroPreviewCard report={report} />
       </div>
     </section>

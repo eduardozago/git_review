@@ -23,11 +23,11 @@ export function SignInPanel() {
       </div>
 
       <div className="grid flex-1 place-items-center py-10">
-        <div className="w-full max-w-[380px]">
-          <h1 className="text-[36px] font-semibold leading-tight tracking-[-0.04em] text-strong">
+        <div className="w-full max-w-95">
+          <h1 className="text-9 font-semibold leading-tight tracking-tight text-strong">
             {heading}
           </h1>
-          <p className="mt-3.5 text-[15px] leading-relaxed text-muted-foreground">
+          <p className="mt-3.5 text-3.75 leading-relaxed text-muted-foreground">
             {sub}
           </p>
 

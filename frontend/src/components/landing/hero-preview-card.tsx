@@ -32,12 +32,12 @@ export function HeroPreviewCard({ report }: HeroPreviewCardProps) {
         <div>
           <div className="mb-3 flex items-center gap-2">
             <Folder size={14} className="text-muted-foreground" />
-            <span className="mono text-[13px] text-muted-foreground">
+            <span className="mono text-3.25 text-muted-foreground">
               {repoPath}
             </span>
           </div>
           <div className="flex items-baseline gap-3">
-            <span className="text-[clamp(56px,10vw,84px)] font-semibold leading-none tracking-[-0.08em] text-strong">
+            <span className="text-6xl sm:text-7xl lg:text-9xl font-semibold leading-none tracking-tighter text-strong">
               {report.score}
             </span>
             <span className="mono text-sm text-dim">/ 100</span>
@@ -47,7 +47,7 @@ export function HeroPreviewCard({ report }: HeroPreviewCardProps) {
               {reportCopy.level}
             </Badge>
             <Badge tone="outline" size="lg">
-              <span className="mono text-[11px]">{reportCopy.delta}</span>
+              <span className="mono text-2.75">{reportCopy.delta}</span>
             </Badge>
           </div>
         </div>
@@ -56,7 +56,7 @@ export function HeroPreviewCard({ report }: HeroPreviewCardProps) {
           {report.dimensions.map((dim) => (
             <div key={dim.id}>
               <div className="mb-1.5 flex items-center justify-between">
-                <span className="text-[13px] text-foreground">{dim.label}</span>
+                <span className="text-3.25 text-foreground">{dim.label}</span>
                 <span className="mono text-xs text-muted-foreground">
                   {dim.score}
                 </span>

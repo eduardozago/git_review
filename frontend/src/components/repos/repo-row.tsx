@@ -20,14 +20,14 @@ export function RepoRow({ repo, selected, onSelect, isFirst }: RepoRowProps) {
       type="button"
       onClick={onSelect}
       className={cn(
-        "grid w-full cursor-pointer grid-cols-[24px_1fr] items-center gap-4 border-border px-4 py-4 text-left transition-colors sm:grid-cols-[24px_1fr_auto_auto_auto] sm:gap-[18px] sm:px-[18px]",
+        "grid w-full cursor-pointer grid-cols-[6_1fr] items-center gap-4 border-border px-4 py-4 text-left transition-colors sm:grid-cols-[6_1fr_auto_auto_auto] sm:gap-4.5 sm:px-4.5",
         !isFirst && "border-t",
         selected ? "bg-accent-soft" : "hover:bg-surface-hover"
       )}
     >
       <div
         className={cn(
-          "grid size-[18px] place-items-center rounded-[5px] border-[1.5px] transition-colors",
+          "grid size-4.5 place-items-center rounded-md border-1.5 transition-colors",
           selected
             ? "border-primary bg-primary text-primary-foreground"
             : "border-border-strong bg-transparent"
@@ -47,7 +47,7 @@ export function RepoRow({ repo, selected, onSelect, isFirst }: RepoRowProps) {
             </Badge>
           )}
         </div>
-        <p className="mt-1 truncate text-[13px] text-muted-foreground">
+        <p className="mt-1 truncate text-3.25 text-muted-foreground">
           {repo.description}
         </p>
       </div>
@@ -63,7 +63,7 @@ export function RepoRow({ repo, selected, onSelect, isFirst }: RepoRowProps) {
         <span className="mono">{repo.stars}</span>
       </div>
 
-      <div className="hidden min-w-[90px] text-right text-xs text-dim sm:block">
+      <div className="hidden min-w-22.5 text-right text-xs text-dim sm:block">
         {repo.updated}
       </div>
     </button>

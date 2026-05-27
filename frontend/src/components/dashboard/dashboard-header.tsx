@@ -18,7 +18,7 @@ export function DashboardHeader({ username }: DashboardHeaderProps) {
         <div className="flex min-w-0 items-center gap-4">
           <Logo size={16} />
           <span className="text-faint">/</span>
-          <span className="mono truncate text-[13px] text-foreground">
+          <span className="mono truncate text-3.25 text-foreground">
             {username}
           </span>
         </div>

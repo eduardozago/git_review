@@ -27,7 +27,7 @@ export default function DashboardPage() {
           <p className="mono m-0 text-xs tracking-wide text-dim uppercase">
             {dashboardCopy.greeting}
           </p>
-          <h1 className="mt-2 text-[32px] font-semibold tracking-tight text-strong">
+          <h1 className="mt-2 text-8 font-semibold tracking-tight text-strong">
             {user.name}{" "}
             <span className="font-normal text-dim">· @{user.username}</span>
           </h1>

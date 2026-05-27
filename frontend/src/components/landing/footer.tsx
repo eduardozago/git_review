@@ -7,7 +7,7 @@ export function LandingFooter() {
 
   return (
     <footer className="border-t border-border px-6 py-10 md:px-8">
-      <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-between gap-6 text-[13px] text-dim">
+      <div className="mx-auto flex max-w-275 flex-wrap items-center justify-between gap-6 text-3.25 text-dim">
         <div className="flex items-center gap-3">
           <Logo size={16} />
           <span className="text-muted-foreground">·</span>
