@@ -1,0 +1,26 @@
+export const dashboardCopy = {
+  greeting: "Welcome back",
+  newAnalysis: "New analysis",
+  recentAnalyses: "Recent analyses",
+  viewAll: "View all",
+  latestReport: "Latest report",
+  openReport: "Open report",
+  signOut: "Sign out",
+  overallScore: "Overall score",
+  files: "files",
+  stats: {
+    reportsGenerated: "Reports generated",
+    averageScore: "Avg. score",
+    bestDimension: "Best dimension",
+    daysAnalyzed: "Days analyzed",
+    allTime: "all-time",
+    thisMonth: "this month",
+  },
+  newAnalysisHint: "Pick another public repo",
+  levels: {
+    junior: "Beginner",
+    mid: "Intermediate",
+    senior: "Senior",
+    architect: "Architect",
+  },
+} as const;
