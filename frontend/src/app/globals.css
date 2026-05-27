@@ -1,26 +1,333 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *, [data-theme="dark"] *));
+
+/* ── Dark theme — GitReview tokens + shadcn mappings ───────────────── */
+:root,
+[data-theme="dark"] {
+  /* Design tokens */
+  --bg: #0a0a0b;
+  --bg-elev: #111114;
+  --surface: #15151a;
+  --surface-2: #1c1c22;
+  --surface-hover: #22222a;
+  --border-strong: #35353f;
+  --border-focus: rgba(16, 185, 129, 0.4);
+
+  --text: #f2f2f5;
+  --text-strong: #ffffff;
+  --text-muted: #9595a0;
+  --text-dim: #62626d;
+  --text-faint: #3f3f48;
+
+  --accent: #10b981;
+  --accent-hover: #14c896;
+  --accent-soft: rgba(16, 185, 129, 0.12);
+  --accent-soft-strong: rgba(16, 185, 129, 0.22);
+  --accent-text: #0a0a0b;
+
+  --plum: #a78bfa;
+  --plum-soft: rgba(167, 139, 250, 0.13);
+  --plum-strong: #7c3aed;
+
+  --warn: #f5a524;
+  --warn-soft: rgba(245, 165, 36, 0.13);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.12);
+  --info: #38bdf8;
+  --info-soft: rgba(56, 189, 248, 0.12);
+
+  --code-bg: #0d0d11;
+  --code-text: #d4d4d8;
+  --code-comment: #5f5f6a;
+  --code-keyword: #a78bfa;
+  --code-string: #10b981;
+  --code-fn: #f5a524;
+  --code-num: #38bdf8;
+  --code-punct: #71717a;
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.02) inset,
+    0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 24px 60px -20px rgba(0, 0, 0, 0.7),
+    0 8px 16px -8px rgba(0, 0, 0, 0.5);
+
+  --grid: rgba(255, 255, 255, 0.035);
+
+  /* shadcn variable mappings */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-text);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-muted);
+  --accent-foreground: var(--text);
+  --destructive: var(--danger);
+  --border: #26262e;
+  --input: #26262e;
+  --ring: var(--border-focus);
+  --radius: 0.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Light theme — GitReview tokens + shadcn mappings ──────────────── */
+[data-theme="light"] {
+  --bg: #fbfbfa;
+  --bg-elev: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f4f4f3;
+  --surface-hover: #ededec;
+  --border-strong: #d4d4d0;
+  --border-focus: rgba(5, 150, 105, 0.35);
+
+  --text: #18181b;
+  --text-strong: #050507;
+  --text-muted: #5a5a62;
+  --text-dim: #86868f;
+  --text-faint: #c4c4c8;
+
+  --accent: #059669;
+  --accent-hover: #047857;
+  --accent-soft: rgba(5, 150, 105, 0.1);
+  --accent-soft-strong: rgba(5, 150, 105, 0.18);
+  --accent-text: #ffffff;
+
+  --plum: #7c3aed;
+  --plum-soft: rgba(124, 58, 237, 0.1);
+  --plum-strong: #6d28d9;
+
+  --warn: #d97706;
+  --warn-soft: rgba(217, 119, 6, 0.12);
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+  --info: #0284c7;
+  --info-soft: rgba(2, 132, 199, 0.1);
+
+  --code-bg: #f6f6f4;
+  --code-text: #18181b;
+  --code-comment: #86868f;
+  --code-keyword: #7c3aed;
+  --code-string: #059669;
+  --code-fn: #d97706;
+  --code-num: #0284c7;
+  --code-punct: #6b7280;
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -16px rgba(0, 0, 0, 0.08);
+  --shadow-pop: 0 24px 60px -20px rgba(0, 0, 0, 0.18),
+    0 8px 16px -8px rgba(0, 0, 0, 0.08);
+
+  --grid: rgba(0, 0, 0, 0.04);
+
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-text);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-muted);
+  --accent-foreground: var(--text);
+  --destructive: var(--danger);
+  --border: #e6e6e3;
+  --input: #e6e6e3;
+  --ring: var(--border-focus);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── Base ──────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+.mono {
+  font-family: var(--font-geist-mono), ui-monospace, "JetBrains Mono", monospace;
+  font-feature-settings: "ss01", "ss02";
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input {
+  font-family: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-soft-strong);
+  color: var(--text-strong);
+}
+
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Density ───────────────────────────────────────────────────────── */
+[data-density="dense"] {
+  --pad-card: 16px;
+  --pad-section: 32px;
+  --gap-stack: 10px;
+  --gap-section: 18px;
+}
+
+[data-density="spacious"] {
+  --pad-card: 28px;
+  --pad-section: 64px;
+  --gap-stack: 18px;
+  --gap-section: 36px;
+}
+
+/* ── Utilities ─────────────────────────────────────────────────────── */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.dim {
+  color: var(--text-dim);
+}
+
+.strong {
+  color: var(--text-strong);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Scrollbars ────────────────────────────────────────────────────── */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* ── Animations ────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 0%,
+    var(--surface-2) 50%,
+    var(--surface) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Tailwind theme bridge ─────────────────────────────────────────── */
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    @apply font-sans;
+  }
 }
