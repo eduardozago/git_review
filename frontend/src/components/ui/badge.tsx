@@ -15,15 +15,15 @@ const badgeVariants = cva(
           "border-transparent bg-destructive/10 text-destructive",
         outline: "border-border bg-transparent text-muted-foreground",
         neutral:
-          "border-border bg-[var(--surface-2)] text-muted-foreground",
+          "border-border bg-muted text-muted-foreground",
         accent:
-          "border-transparent bg-[var(--accent-soft)] text-[var(--accent)]",
+          "border-transparent bg-accent-soft text-accent",
         plum:
-          "border-transparent bg-[var(--plum-soft)] text-[var(--plum)]",
-        warn: "border-transparent bg-[var(--warn-soft)] text-[var(--warn)]",
+          "border-transparent bg-plum-soft text-plum",
+        warn: "border-transparent bg-warn-soft text-warn",
         danger:
-          "border-transparent bg-[var(--danger-soft)] text-[var(--danger)]",
-        info: "border-transparent bg-[var(--info-soft)] text-[var(--info)]",
+          "border-transparent bg-danger-soft text-destructive",
+        info: "border-transparent bg-info-soft text-info",
         ghost:
           "border-transparent hover:bg-muted hover:text-muted-foreground",
         link: "border-transparent text-primary underline-offset-4 hover:underline",

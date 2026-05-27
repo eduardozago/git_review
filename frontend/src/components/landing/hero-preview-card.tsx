@@ -15,20 +15,20 @@ export function HeroPreviewCard({ report }: HeroPreviewCardProps) {
   const repoPath = `${report.owner} / ${report.repo}`
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-pop)]">
-      <div className="flex items-center gap-2.5 border-b border-border bg-[var(--bg-elev)] px-4 py-3">
+    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-pop">
+      <div className="flex items-center gap-2.5 border-b border-border bg-elev px-4 py-3">
         <div className="flex gap-1.5">
           {[0, 1, 2].map((i) => (
             <span
               key={i}
-              className="size-2.5 rounded-full bg-[var(--text-faint)]"
+              className="size-2.5 rounded-full bg-faint"
             />
           ))}
         </div>
         <div className="mono flex-1 text-center text-xs text-muted-foreground">
           gitreview.dev/{report.owner}/{report.repo}
         </div>
-        <Eye size={14} className="text-[var(--text-dim)]" />
+        <Eye size={14} className="text-dim" />
       </div>
 
       <div className="grid items-center gap-8 p-7 md:grid-cols-[1.1fr_1fr]">
@@ -40,10 +40,10 @@ export function HeroPreviewCard({ report }: HeroPreviewCardProps) {
             </span>
           </div>
           <div className="flex items-baseline gap-3">
-            <span className="text-[clamp(56px,10vw,84px)] font-semibold leading-none tracking-[-0.08em] text-[var(--text-strong)]">
+            <span className="text-[clamp(56px,10vw,84px)] font-semibold leading-none tracking-[-0.08em] text-strong">
               {report.score}
             </span>
-            <span className="mono text-sm text-[var(--text-dim)]">/ 100</span>
+            <span className="mono text-sm text-dim">/ 100</span>
           </div>
           <div className="mt-3.5 flex flex-wrap items-center gap-2">
             <Badge tone="accent" icon={Check} size="lg">

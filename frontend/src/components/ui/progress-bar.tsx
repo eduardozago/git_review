@@ -34,7 +34,7 @@ export function ProgressBar({
 
   return (
     <div
-      className={cn("w-full overflow-hidden rounded-full bg-[var(--surface-2)]", className)}
+      className={cn("w-full overflow-hidden rounded-full bg-muted", className)}
       style={{ height }}
     >
       <div

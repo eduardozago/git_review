@@ -1,10 +1,9 @@
 "use client";
 
-import { ArrowRight, Bolt, Check, Folder } from "lucide-react";
-import { useState } from "react";
+import { Bolt, Check, Folder } from "lucide-react"
+import { useState } from "react"
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge"
 import { CodeBlock } from "@/components/ui/code-block";
 import { ProgressBar } from "@/components/ui/progress-bar";
 
@@ -37,7 +36,7 @@ export function LandingReportPreviewSection({
   return (
     <section
       id="preview"
-      className="border-t border-border bg-[var(--bg-elev)] px-6 py-24 md:px-8 md:py-28"
+      className="border-t border-border bg-elev px-6 py-24 md:px-8 md:py-28"
     >
       <div className="mx-auto max-w-[1100px]">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
@@ -45,7 +44,7 @@ export function LandingReportPreviewSection({
             <p className="mono m-0 text-xs tracking-wide text-primary uppercase">
               {preview.eyebrow}
             </p>
-            <h2 className="mt-3 text-balance text-[clamp(28px,4vw,36px)] font-semibold tracking-[-0.04em] text-[var(--text-strong)]">
+            <h2 className="mt-3 text-balance text-[clamp(28px,4vw,36px)] font-semibold tracking-[-0.04em] text-strong">
               {preview.heading}
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
@@ -62,7 +61,7 @@ export function LandingReportPreviewSection({
                 <div className="mono text-[13px] text-foreground">
                   {repoPath}
                 </div>
-                <div className="text-xs text-[var(--text-dim)]">
+                <div className="text-xs text-dim">
                   {report.generatedAt}
                 </div>
               </div>
@@ -81,7 +80,7 @@ export function LandingReportPreviewSection({
                 className={[
                   "-mb-px border-b-2 px-4 py-3 text-[13.5px] font-medium transition-colors",
                   tab === item.id
-                    ? "border-primary text-[var(--text-strong)]"
+                    ? "border-primary text-strong"
                     : "border-transparent text-muted-foreground hover:text-foreground",
                 ].join(" ")}
               >
@@ -101,7 +100,7 @@ export function LandingReportPreviewSection({
             {tab === "overview" ? (
               <>
                 <div>
-                  <div className="mono text-xs tracking-wide text-[var(--text-dim)] uppercase">
+                  <div className="mono text-xs tracking-wide text-dim uppercase">
                     {preview.summary}
                   </div>
                   <p className="mt-3 text-pretty text-[15px] leading-relaxed text-foreground">
@@ -161,7 +160,7 @@ export function LandingReportPreviewSection({
                       >
                         <Bolt
                           size={14}
-                          className="mt-0.5 shrink-0 text-[var(--warn)]"
+                          className="mt-0.5 shrink-0 text-warn"
                         />
                         <span className="text-[13.5px] text-foreground">
                           {item.h}

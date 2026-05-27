@@ -24,7 +24,7 @@ export function SignInPanel() {
 
       <div className="grid flex-1 place-items-center py-10">
         <div className="w-full max-w-[380px]">
-          <h1 className="text-[36px] font-semibold leading-tight tracking-[-0.04em] text-[var(--text-strong)]">
+          <h1 className="text-[36px] font-semibold leading-tight tracking-[-0.04em] text-strong">
             {heading}
           </h1>
           <p className="mt-3.5 text-[15px] leading-relaxed text-muted-foreground">
@@ -35,7 +35,7 @@ export function SignInPanel() {
             <GitHubSignInButton />
           </div>
 
-          <p className="mt-4 text-xs leading-relaxed text-[var(--text-dim)]">
+          <p className="mt-4 text-xs leading-relaxed text-dim">
             {terms.prefix}{" "}
             <a href="#" className="text-muted-foreground underline">
               {terms.terms}
@@ -49,7 +49,7 @@ export function SignInPanel() {
         </div>
       </div>
 
-      <p className="mono text-xs text-[var(--text-dim)]">{footer}</p>
+      <p className="mono text-xs text-dim">{footer}</p>
     </div>
   )
 }

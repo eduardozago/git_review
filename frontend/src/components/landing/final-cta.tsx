@@ -9,7 +9,7 @@ export function LandingFinalCta() {
   return (
     <section className="border-t border-border px-6 py-24 text-center md:px-8">
       <div className="mx-auto max-w-[720px]">
-        <h2 className="text-balance text-[clamp(36px,5vw,48px)] font-semibold leading-[1.05] tracking-[-0.05em] text-[var(--text-strong)]">
+        <h2 className="text-balance text-[clamp(36px,5vw,48px)] font-semibold leading-[1.05] tracking-[-0.05em] text-strong">
           {finalCta.heading}{" "}
           <span className="text-muted-foreground">{finalCta.headingMuted}</span>
         </h2>

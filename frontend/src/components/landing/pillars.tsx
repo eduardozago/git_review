@@ -20,7 +20,7 @@ export function LandingPillars() {
           <p className="mono m-0 text-xs tracking-wide text-primary uppercase">
             {pillars.eyebrow}
           </p>
-          <h2 className="mt-3 text-balance text-[clamp(32px,5vw,44px)] font-semibold leading-tight tracking-[-0.04em] text-[var(--text-strong)]">
+          <h2 className="mt-3 text-balance text-[clamp(32px,5vw,44px)] font-semibold leading-tight tracking-[-0.04em] text-strong">
             {pillars.heading}
           </h2>
         </div>
@@ -31,7 +31,7 @@ export function LandingPillars() {
             return (
               <div key={pillar.key} className="bg-background p-7">
                 <Icon size={22} className="text-primary" />
-                <h3 className="mt-5 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
+                <h3 className="mt-5 text-lg font-semibold tracking-tight text-strong">
                   {pillar.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

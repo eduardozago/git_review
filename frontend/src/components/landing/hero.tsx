@@ -34,7 +34,7 @@ export function LandingHero({ report }: LandingHeroProps) {
           </span>
         </Badge>
 
-        <h1 className="text-balance text-[clamp(40px,6vw,76px)] font-semibold leading-[1.02] tracking-[-0.06em] text-[var(--text-strong)]">
+        <h1 className="text-balance text-[clamp(40px,6vw,76px)] font-semibold leading-[1.02] tracking-[-0.06em] text-strong">
           {hero.h1a}
           <br />
           <span className="text-muted-foreground">{hero.h1b}</span>
@@ -55,7 +55,7 @@ export function LandingHero({ report }: LandingHeroProps) {
           </Button>
         </div>
 
-        <p className="mt-3.5 text-[13px] text-[var(--text-dim)]">
+        <p className="mt-3.5 text-[13px] text-dim">
           {hero.ctaSub}
         </p>
 
@@ -63,7 +63,7 @@ export function LandingHero({ report }: LandingHeroProps) {
           {hero.meta.map((item, index) => (
             <span key={item} className="flex items-center gap-2">
               {index > 0 && (
-                <span className="size-1 rounded-full bg-[var(--text-dim)]" />
+                <span className="size-1 rounded-full bg-dim" />
               )}
               {index === 0 && (
                 <span className="size-1 rounded-full bg-primary" />
