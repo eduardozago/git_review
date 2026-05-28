@@ -10,6 +10,7 @@ interface ProgressBarProps {
   color?: string
   height?: number
   animated?: boolean
+  transitionMs?: number
   className?: string
 }
 
@@ -19,6 +20,7 @@ export function ProgressBar({
   color,
   height = 6,
   animated = false,
+  transitionMs = 900,
   className,
 }: ProgressBarProps) {
   const pct = Math.max(0, Math.min(100, (value / max) * 100))
@@ -42,7 +44,7 @@ export function ProgressBar({
         style={{
           width: `${displayWidth}%`,
           background: color ?? undefined,
-          transitionDuration: "900ms",
+          transitionDuration: `${transitionMs}ms`,
         }}
       />
     </div>

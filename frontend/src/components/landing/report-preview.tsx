@@ -8,7 +8,7 @@ import { CodeBlock } from "@/components/ui/code-block"
 import { ProgressBar } from "@/components/ui/progress-bar"
 
 import { landingCopy } from "./copy"
-import type { LandingReportPreview } from "./mock-report"
+import type { LandingReportPreview } from "@/lib/mock/mock-report"
 
 interface LandingReportPreviewSectionProps {
   report: LandingReportPreview

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { ProgressBar } from "@/components/ui/progress-bar"
 
 import { landingCopy } from "./copy"
-import type { LandingReportPreview } from "./mock-report"
+import type { LandingReportPreview } from "@/lib/mock/mock-report"
 
 interface HeroPreviewCardProps {
   report: LandingReportPreview
