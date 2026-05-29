@@ -1,5 +1,4 @@
 import type { AnalyzedRepo } from "@/lib/types/repo"
-import type { User } from "@/lib/types/user"
 
 import { getMockRepos } from "./repos"
 
@@ -11,18 +10,8 @@ export interface DashboardStats {
 }
 
 export interface DashboardData {
-  user: User
   analyzedRepos: AnalyzedRepo[]
   stats: DashboardStats
-}
-
-const mockUser: User = {
-  username: "gabriellopessdev",
-  name: "Gabriel Lopes",
-  bio: "Full-stack dev. TypeScript, Python, building things.",
-  followers: 47,
-  following: 132,
-  publicRepos: 24,
 }
 
 function buildStats(repos: AnalyzedRepo[]): DashboardStats {
@@ -51,7 +40,6 @@ export function getDashboardData(): DashboardData {
   const analyzedRepos = getAnalyzedRepos()
 
   return {
-    user: mockUser,
     analyzedRepos,
     stats: buildStats(analyzedRepos),
   }
