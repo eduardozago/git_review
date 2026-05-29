@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 
-import { PermissionsPanel } from "@/components/sign-in/permissions-panel"
-import { SignInPanel } from "@/components/sign-in/sign-in-panel"
+import { SignInClient } from "@/components/sign-in/sign-in-client"
 
 export const metadata: Metadata = {
   title: "Sign in — GitReview",
@@ -10,10 +9,5 @@ export const metadata: Metadata = {
 }
 
 export default function SignInPage() {
-  return (
-    <div className="min-h-screen bg-background lg:grid lg:grid-cols-2">
-      <SignInPanel />
-      <PermissionsPanel />
-    </div>
-  )
+  return <SignInClient />
 }

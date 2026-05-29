@@ -1,17 +1,18 @@
-import Link from "next/link"
-import { LogOut, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { InitialAvatar } from "@/components/ui/initial-avatar"
 import { Logo } from "@/components/ui/logo"
 
+import { LogoutButton } from "./logout-button"
 import { dashboardCopy } from "./copy"
 
 interface DashboardHeaderProps {
   username: string
+  avatarUrl?: string | null
 }
 
-export function DashboardHeader({ username }: DashboardHeaderProps) {
+export function DashboardHeader({ username, avatarUrl }: DashboardHeaderProps) {
   return (
     <header className="sticky top-0 z-10 border-b border-border bg-background">
       <div className="mx-auto flex max-w-300 items-center justify-between gap-4 px-6 py-3.5 md:px-8">
@@ -29,14 +30,11 @@ export function DashboardHeader({ username }: DashboardHeaderProps) {
             {dashboardCopy.newAnalysis}
           </Button>
           <div className="flex items-center gap-2 border-l border-border pl-2">
-            <InitialAvatar name={username} size={28} />
-            <Link
-              href="/"
-              title={dashboardCopy.signOut}
-              className="rounded-md p-1.5 text-dim transition-colors hover:text-muted-foreground"
-            >
-              <LogOut size={16} />
-            </Link>
+            <Avatar size="sm">
+              <AvatarImage src={avatarUrl ?? undefined} alt={username} />
+              <AvatarFallback>{username.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <LogoutButton />
           </div>
         </div>
       </div>
