@@ -1,4 +1,4 @@
-from httpx import AsyncClient
+from httpx import AsyncClient, HTTPStatusError
 from pydantic import BaseModel
 
 GITHUB_API_BASE = "https://api.github.com"
@@ -6,6 +6,7 @@ GITHUB_API_HEADERS = {
     "Accept": "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
 }
+MAX_PAGES = 10  # Max 1000 repos to prevent memory exhaustion
 
 class RepoOut(BaseModel):
     name: str
@@ -21,12 +22,18 @@ class RepoOut(BaseModel):
     topics: list[str]
     size: int
 
+class GitHubAPIError(Exception):
+    """Raised when GitHub API returns an error."""
+    def __init__(self, message: str, status_code: int | None = None):
+        super().__init__(message)
+        self.status_code = status_code
+
 async def get_user_repos(access_token: str, client: AsyncClient) -> list[RepoOut]:
     headers = {**GITHUB_API_HEADERS, "Authorization": f"Bearer {access_token}"}
     repos: list[RepoOut] = []
     page = 1
 
-    while True:
+    while page <= MAX_PAGES:
         response = await client.get(
             f"{GITHUB_API_BASE}/user/repos",
             headers=headers,
@@ -38,7 +45,20 @@ async def get_user_repos(access_token: str, client: AsyncClient) -> list[RepoOut
                 "page": page,
             },
         )
-        response.raise_for_status()
+
+        try:
+            response.raise_for_status()
+        except HTTPStatusError as e:
+            status_code = e.response.status_code
+            if status_code == 401:
+                raise GitHubAPIError("GitHub token expired or invalid", 401)
+            elif status_code == 403:
+                raise GitHubAPIError("GitHub API rate limit exceeded", 403)
+            elif status_code == 502:
+                raise GitHubAPIError("GitHub API unavailable", 502)
+            else:
+                raise GitHubAPIError(f"GitHub API error: {status_code}", status_code)
+
         data = response.json()
 
         if not data:
@@ -63,6 +83,9 @@ async def get_user_repos(access_token: str, client: AsyncClient) -> list[RepoOut
                     size=repo["size"],
                 )
             )
+
+        if len(data) < 100:
+            break
 
         page += 1
 
