@@ -7,6 +7,8 @@ interface LangPillProps {
 }
 
 export function LangPill({ name, color, className }: LangPillProps) {
+  if (!name) return null
+  
   return (
     <span
       className={cn("flex items-center gap-1.5 text-xs text-dim", className)}
