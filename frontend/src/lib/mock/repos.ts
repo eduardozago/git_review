@@ -4,6 +4,8 @@ export const mockRepos: RepoSummary[] = [
   {
     id: "spotify-clone-react",
     name: "spotify-clone-react",
+    full_name: "mockuser/spotify-clone-react",
+    url: "https://github.com/mockuser/spotify-clone-react",
     description:
       "A faithful Spotify Web Player clone built with React + TypeScript. Auth, playlists, playback controls.",
     lang: "TypeScript",
@@ -20,6 +22,8 @@ export const mockRepos: RepoSummary[] = [
   {
     id: "task-manager-api",
     name: "task-manager-api",
+    full_name: "mockuser/task-manager-api",
+    url: "https://github.com/mockuser/task-manager-api",
     description:
       "REST API for a task manager. Node, Express, Postgres, JWT auth, integration tests.",
     lang: "TypeScript",
@@ -36,6 +40,8 @@ export const mockRepos: RepoSummary[] = [
   {
     id: "ml-stock-predictor",
     name: "ml-stock-predictor",
+    full_name: "mockuser/ml-stock-predictor",
+    url: "https://github.com/mockuser/ml-stock-predictor",
     description:
       "LSTM + ARIMA stock price predictor. Jupyter notebooks, scikit-learn, pandas.",
     lang: "Python",
@@ -52,6 +58,8 @@ export const mockRepos: RepoSummary[] = [
   {
     id: "portfolio-v2",
     name: "portfolio-v2",
+    full_name: "mockuser/portfolio-v2",
+    url: "https://github.com/mockuser/portfolio-v2",
     description:
       "Personal site. Next.js, MDX, framer-motion. Hand-coded animations.",
     lang: "TypeScript",
@@ -67,6 +75,8 @@ export const mockRepos: RepoSummary[] = [
   {
     id: "chat-realtime",
     name: "chat-realtime",
+    full_name: "mockuser/chat-realtime",
+    url: "https://github.com/mockuser/chat-realtime",
     description:
       "Realtime chat with rooms. Socket.io + Redis pub/sub. Presence indicators.",
     lang: "JavaScript",
@@ -83,6 +93,8 @@ export const mockRepos: RepoSummary[] = [
   {
     id: "algoritmos-estudos",
     name: "algoritmos-estudos",
+    full_name: "mockuser/algoritmos-estudos",
+    url: "https://github.com/mockuser/algoritmos-estudos",
     description:
       "Notes and implementations from DS&A studies. Heap, trees, graphs, DP.",
     lang: "JavaScript",
@@ -98,6 +110,8 @@ export const mockRepos: RepoSummary[] = [
   {
     id: "go-url-shortener",
     name: "go-url-shortener",
+    full_name: "mockuser/go-url-shortener",
+    url: "https://github.com/mockuser/go-url-shortener",
     description:
       "URL shortener service in Go. Echo, Redis, snowflake IDs. Sub-ms p99.",
     lang: "Go",
@@ -113,6 +127,8 @@ export const mockRepos: RepoSummary[] = [
   {
     id: "react-hooks-lab",
     name: "react-hooks-lab",
+    full_name: "mockuser/react-hooks-lab",
+    url: "https://github.com/mockuser/react-hooks-lab",
     description:
       "Custom hooks I keep reaching for. useDebounce, useMediaQuery, useLocalStorage.",
     lang: "TypeScript",
