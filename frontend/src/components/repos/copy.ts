@@ -7,6 +7,7 @@ export const reposCopy = {
   sortAz: "A → Z",
   allLanguages: "All",
   startAnalysis: "Start analysis",
+  starting: "Starting…",
   cancel: "Cancel",
   repoCount: (count: number) => `${count} repositories`,
   lastScore: (score: number) => `Last: ${score}`,

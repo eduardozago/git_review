@@ -52,11 +52,12 @@ export function RepoRow({ repo, selected, onSelect, isFirst }: RepoRowProps) {
         </p>
       </div>
 
-      <LangPill
-        name={repo.lang}
-        color={repo.langColor}
-        className="hidden sm:flex"
-      />
+      <div className="hidden min-w-24 sm:flex">
+        <LangPill
+          name={repo.lang}
+          color={repo.langColor}
+        />
+      </div>
 
       <div className="hidden items-center gap-1 text-xs text-dim sm:flex">
         <Star size={12} />

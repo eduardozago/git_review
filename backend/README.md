@@ -1,6 +1,6 @@
 # GitReview — Backend
 
-FastAPI backend for the GitReview application. Handles GitHub OAuth authentication, user persistence, and (upcoming) AI-powered repository analysis.
+FastAPI backend for the GitReview application. Handles GitHub OAuth authentication, user persistence, public repository listing, selection tracking, and (upcoming) AI-powered repository analysis.
 
 ## Requirements
 
@@ -85,33 +85,39 @@ uvicorn app.main:app --reload
 ```
 
 Server runs at **http://localhost:8000**.  
-The `users` table is created automatically on first startup.
+All database tables are created automatically on first startup.
 
 ## Project Structure
 
 ```
 app/
-├── main.py              ← app entry point, CORS, lifespan
+├── main.py                        ← app entry point, CORS, lifespan
 ├── core/
-│   ├── config.py        ← environment variable config (pydantic-settings)
-│   ├── database.py      ← async SQLAlchemy engine and session
-│   └── security.py      ← JWT encoding/decoding, auth dependency
+│   ├── config.py                  ← environment variable config (pydantic-settings)
+│   ├── database.py                ← async SQLAlchemy engine and session
+│   └── security.py                ← JWT encoding/decoding, auth dependency
 ├── models/
-│   └── user.py          ← User database model
+│   ├── user.py                    ← User database model
+│   └── repo_selection.py          ← RepoSelection database model
 ├── services/
-│   └── auth_service.py  ← GitHub OAuth logic
+│   ├── auth_service.py            ← GitHub OAuth logic
+│   ├── github_service.py          ← paginated public repo fetch from GitHub API
+│   └── repo_selection_service.py  ← repo selection persistence
 └── api/routes/
-    └── auth.py          ← auth endpoints
+    ├── auth.py                    ← auth endpoints
+    └── repos.py                   ← repo listing and selection endpoints
 ```
 
 ## API
 
-| Method | Path             | Description                    |
-| ------ | ---------------- | ------------------------------ |
-| `GET`  | `/health`        | Health check                   |
-| `GET`  | `/auth/github`   | Starts GitHub OAuth flow       |
-| `GET`  | `/auth/callback` | GitHub OAuth callback          |
-| `GET`  | `/auth/me`       | Returns the authenticated user |
-| `POST` | `/auth/logout`   | Clears the session cookie      |
+| Method | Path              | Auth | Description                                        |
+| ------ | ----------------- | ---- | -------------------------------------------------- |
+| `GET`  | `/health`         |      | Health check                                       |
+| `GET`  | `/auth/github`    |      | Starts GitHub OAuth flow                           |
+| `GET`  | `/auth/callback`  |      | GitHub OAuth callback — sets session cookie        |
+| `GET`  | `/auth/me`        | ✓    | Returns the authenticated user                     |
+| `POST` | `/auth/logout`    | ✓    | Clears the session cookie (204)                    |
+| `GET`  | `/repos`          | ✓    | Lists user's public repos from GitHub              |
+| `POST` | `/repos/select`   | ✓    | Persists selected repo, returns record with id (201) |
 
 Interactive docs available at **http://localhost:8000/docs** when the server is running.

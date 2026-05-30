@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
@@ -11,11 +10,11 @@ import { reposCopy } from "./copy"
 
 interface ReposHeaderProps {
   selectedId: string | null
+  isStarting: boolean
+  onStart: () => void
 }
 
-export function ReposHeader({ selectedId }: ReposHeaderProps) {
-  const router = useRouter()
-
+export function ReposHeader({ selectedId, isStarting, onStart }: ReposHeaderProps) {
   return (
     <header className="sticky top-0 z-10 border-b border-border bg-background">
       <div className="mx-auto flex max-w-275 items-center justify-between gap-4 px-6 py-3.5 md:px-8">
@@ -35,15 +34,11 @@ export function ReposHeader({ selectedId }: ReposHeaderProps) {
 
         <Button
           variant="primary"
-          disabled={!selectedId}
+          disabled={!selectedId || isStarting}
           type="button"
-          onClick={() => {
-            if (selectedId) {
-              router.push(`/analysis?repo=${selectedId}`)
-            }
-          }}
+          onClick={onStart}
         >
-          {reposCopy.startAnalysis}
+          {isStarting ? reposCopy.starting : reposCopy.startAnalysis}
           <ArrowRight size={16} />
         </Button>
       </div>

@@ -1,7 +1,8 @@
 "use client"
 
 import { Search } from "lucide-react"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
 import {
@@ -16,31 +17,79 @@ import {
   getRepoLanguages,
   type RepoSort,
 } from "@/lib/filter-repos"
-import { getMockRepos } from "@/lib/mock/repos"
+import { getRepos, selectRepo } from "@/lib/repos"
+import type { RepoSummary } from "@/lib/types/repo"
 
 import { reposCopy } from "./copy"
 import { RepoRow } from "./repo-row"
 import { ReposHeader } from "./repos-header"
 
+function getErrorMessage(err: unknown): string {
+  if (err instanceof Error) return err.message
+  return "An unexpected error occurred. Please try again."
+}
+
 export function ReposPage() {
-  const repos = useMemo(() => getMockRepos(), [])
-  const languages = useMemo(() => getRepoLanguages(repos), [repos])
+  const router = useRouter()
+
+  const [repos, setRepos] = useState<RepoSummary[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [isStarting, setIsStarting] = useState(false)
 
   const [query, setQuery] = useState("")
   const [langFilter, setLangFilter] = useState("all")
   const [sort, setSort] = useState<RepoSort>("recent")
-  const [selectedId, setSelectedId] = useState<string | null>(
-    "spotify-clone-react"
-  )
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
+  useEffect(() => {
+    const controller = new AbortController()
+    let cancelled = false
+
+    getRepos()
+      .then((data) => {
+        if (!cancelled) setRepos(data)
+      })
+      .catch((err) => {
+        if (!cancelled) setError(getErrorMessage(err))
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
+  }, [])
+
+  const languages = useMemo(() => getRepoLanguages(repos), [repos])
   const filtered = useMemo(
     () => filterAndSortRepos(repos, query, langFilter, sort),
     [repos, query, langFilter, sort]
   )
 
+  async function handleStart() {
+    const repo = repos.find((r) => r.id === selectedId)
+    if (!repo) return
+    setIsStarting(true)
+    setError(null)
+    try {
+      const selection = await selectRepo(repo)
+      router.push(`/analysis?selection=${selection.id}`)
+    } catch (err) {
+      setError(getErrorMessage(err))
+      setIsStarting(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background">
-      <ReposHeader selectedId={selectedId} />
+      <ReposHeader
+        selectedId={selectedId}
+        isStarting={isStarting}
+        onStart={handleStart}
+      />
 
       <main className="mx-auto max-w-275 px-6 py-12 pb-20 md:px-8">
         <div className="mb-7">
@@ -99,7 +148,13 @@ export function ReposPage() {
         </div>
 
         <div className="overflow-hidden rounded-xl border border-border bg-card">
-          {filtered.length === 0 ? (
+          {loading ? (
+            <p className="px-6 py-16 text-center text-dim">
+              Loading repositories…
+            </p>
+          ) : error ? (
+            <p className="px-6 py-16 text-center text-destructive">{error}</p>
+          ) : filtered.length === 0 ? (
             <p className="px-6 py-16 text-center text-dim">{reposCopy.empty}</p>
           ) : (
             filtered.map((repo, index) => (
