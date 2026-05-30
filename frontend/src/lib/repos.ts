@@ -39,7 +39,7 @@ export function mapApiRepo(repo: ApiRepo): RepoSummary {
     langColor: langColor(repo.language),
     stars: repo.stars,
     forks: repo.forks,
-    files: repo.size,
+    sizeInKb: repo.size,
     score: null,
     analyzed: false,
     updated: timeAgo(repo.pushed_at),

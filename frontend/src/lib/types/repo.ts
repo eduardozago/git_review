@@ -8,7 +8,7 @@ export interface RepoSummary {
   langColor: string
   stars: number
   forks: number
-  files: number
+  sizeInKb: number
   score: number | null
   analyzed: boolean
   analyzedAgo?: string
