@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.core.security import get_current_user
 from app.models.user import User
-from app.services.github_service import RepoOut, get_user_repos
+from app.services.github_service import GitHubAPIError, RepoOut, get_user_repos
 from app.services.repo_selection_service import create_selection
 
 logger = logging.getLogger(__name__)
@@ -29,8 +29,15 @@ async def list_repos(
     client = request.app.state.http_client
     try:
         repos = await get_user_repos(current_user.access_token, client)
+    except GitHubAPIError as e:
+        logger.warning("GitHub API error for user %s: %s (status=%s)",
+                      current_user.login, e, e.status_code)
+        raise HTTPException(
+            status_code=e.status_code or status.HTTP_502_BAD_GATEWAY,
+            detail=str(e),
+        )
     except Exception:
-        logger.exception("Failed to fetch GitHub repos for user %s", current_user.login)
+        logger.exception("Unexpected error fetching GitHub repos for user %s", current_user.login)
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="Failed to fetch repositories from GitHub.",
