@@ -5,8 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function timeAgo(isoDate: string): string {
-  const seconds = Math.floor((Date.now() - new Date(isoDate).getTime()) / 1000)
+export function timeAgo(isoDate: string | null | undefined): string {
+  if (!isoDate) return "unknown"
+  const date = new Date(isoDate)
+  const timestamp = date.getTime()
+  if (isNaN(timestamp)) return "unknown"
+
+  const seconds = Math.floor((Date.now() - timestamp) / 1000)
   if (seconds < 60) return "just now"
   const minutes = Math.floor(seconds / 60)
   if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"} ago`
