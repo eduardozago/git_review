@@ -24,6 +24,11 @@ import { reposCopy } from "./copy"
 import { RepoRow } from "./repo-row"
 import { ReposHeader } from "./repos-header"
 
+function getErrorMessage(err: unknown): string {
+  if (err instanceof Error) return err.message
+  return "An unexpected error occurred. Please try again."
+}
+
 export function ReposPage() {
   const router = useRouter()
 
@@ -38,10 +43,24 @@ export function ReposPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   useEffect(() => {
+    const controller = new AbortController()
+    let cancelled = false
+
     getRepos()
-      .then(setRepos)
-      .catch(() => setError("Failed to load repositories. Please try again."))
-      .finally(() => setLoading(false))
+      .then((data) => {
+        if (!cancelled) setRepos(data)
+      })
+      .catch((err) => {
+        if (!cancelled) setError(getErrorMessage(err))
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
   }, [])
 
   const languages = useMemo(() => getRepoLanguages(repos), [repos])
@@ -54,11 +73,12 @@ export function ReposPage() {
     const repo = repos.find((r) => r.id === selectedId)
     if (!repo) return
     setIsStarting(true)
+    setError(null)
     try {
       const selection = await selectRepo(repo)
       router.push(`/analysis?selection=${selection.id}`)
-    } catch {
-      setError("Failed to start analysis. Please try again.")
+    } catch (err) {
+      setError(getErrorMessage(err))
       setIsStarting(false)
     }
   }
