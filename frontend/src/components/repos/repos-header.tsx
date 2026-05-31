@@ -17,7 +17,7 @@ interface ReposHeaderProps {
 export function ReposHeader({ selectedId, isStarting, onStart }: ReposHeaderProps) {
   return (
     <header className="sticky top-0 z-10 border-b border-border bg-background">
-      <div className="mx-auto flex max-w-275 items-center justify-between gap-4 px-6 py-3.5 md:px-8">
+      <div className="mx-auto flex max-w-300 items-center justify-between gap-4 px-6 py-3.5 md:px-8">
         <div className="flex min-w-0 items-center gap-3">
           <Button variant="ghost" size="sm" href="/dashboard">
             <ArrowLeft size={16} />

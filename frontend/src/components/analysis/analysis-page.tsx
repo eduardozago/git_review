@@ -70,8 +70,8 @@ export function AnalysisPage() {
   const eta = Math.max(0, Math.ceil(TOTAL_SEC - elapsed));
 
   return (
-    <div className="min-h-screen bg-background grid place-items-center p-8">
-      <div className="w-full max-w-180">
+    <div className="min-h-screen bg-background flex items-center justify-center p-8">
+      <div className="w-full max-w-300">
         <div className="flex justify-between items-center mb-9">
           <Logo />
           <Button variant="ghost" size="sm" icon={X} href="/repos">

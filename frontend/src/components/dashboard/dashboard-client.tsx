@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
 
 import { getMe } from "@/lib/auth"
 import { getDashboardData } from "@/lib/mock/dashboard"
@@ -15,14 +14,11 @@ import { StatsStrip } from "./stats-strip"
 import { dashboardCopy } from "./copy"
 
 export function DashboardClient() {
-  const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    getMe()
-      .then(setUser)
-      .catch(() => router.replace("/sign-in"))
-  }, [router])
+    getMe().then(setUser).catch(() => {})
+  }, [])
 
   if (!user) return null
 
