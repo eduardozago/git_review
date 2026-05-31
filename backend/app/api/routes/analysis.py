@@ -3,9 +3,13 @@ from dataclasses import asdict
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 
+from app.core.database import get_db
 from app.core.security import get_current_user
 from app.models.user import User
+from app.models.analysis_report import AnalysisReport
 from app.services.analysis_pipeline import AnalysisPipeline
 
 logger = logging.getLogger(__name__)
@@ -23,12 +27,9 @@ async def analyze_repository(
     body: AnalysisRequest,
     request: Request,
     current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
-    """Run a full analysis on a GitHub repository.
-
-    Collects repo data and runs parallel LLM-powered analyzers across
-    5 dimensions: commits, code quality, README, PRs, and project structure.
-    """
+    """Run a full analysis on a GitHub repository and persist it."""
     http_client = request.app.state.http_client
 
     pipeline = AnalysisPipeline(
@@ -42,7 +43,86 @@ async def analyze_repository(
         logger.exception(f"Analysis failed for {body.owner}/{body.repo}")
         raise HTTPException(status_code=500, detail="Analysis failed. Please try again.")
 
-    return asdict(report)
+    report_dict = asdict(report)
+
+    # Persist to database
+    db_report = AnalysisReport(
+        user_id=current_user.id,
+        owner=body.owner,
+        repo=body.repo,
+        overall_score=report.overall_score,
+        summary=report.summary,
+        top_strengths=report.top_strengths,
+        critical_issues=report.critical_issues,
+        next_steps=report.next_steps,
+        dimensions=report.dimensions,
+        repo_metadata=report.repo_metadata,
+    )
+    db.add(db_report)
+    await db.commit()
+    await db.refresh(db_report)
+
+    report_dict["id"] = db_report.id
+    report_dict["created_at"] = db_report.created_at.isoformat()
+
+    return report_dict
+
+
+@router.get("/history")
+async def list_analysis_history(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """List past analysis reports for the current user."""
+    result = await db.execute(
+        select(AnalysisReport)
+        .where(AnalysisReport.user_id == current_user.id)
+        .order_by(AnalysisReport.created_at.desc())
+        .limit(50)
+    )
+    reports = result.scalars().all()
+
+    return [
+        {
+            "id": r.id,
+            "owner": r.owner,
+            "repo": r.repo,
+            "overall_score": r.overall_score,
+            "summary": r.summary,
+            "created_at": r.created_at.isoformat(),
+        }
+        for r in reports
+    ]
+
+
+@router.get("/history/{report_id}")
+async def get_analysis_report(
+    report_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Get a specific past analysis report."""
+    result = await db.execute(
+        select(AnalysisReport)
+        .where(AnalysisReport.id == report_id, AnalysisReport.user_id == current_user.id)
+    )
+    report = result.scalar_one_or_none()
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    return {
+        "id": report.id,
+        "owner": report.owner,
+        "repo": report.repo,
+        "overall_score": report.overall_score,
+        "summary": report.summary,
+        "top_strengths": report.top_strengths,
+        "critical_issues": report.critical_issues,
+        "next_steps": report.next_steps,
+        "dimensions": report.dimensions,
+        "repo_metadata": report.repo_metadata,
+        "created_at": report.created_at.isoformat(),
+    }
 
 
 @router.get("/repos")
