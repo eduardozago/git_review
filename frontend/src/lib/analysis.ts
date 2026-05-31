@@ -11,6 +11,7 @@ export interface AnalysisDimension {
 }
 
 export interface AnalysisReport {
+  id?: number
   owner: string
   repo: string
   overall_score: number
@@ -28,6 +29,16 @@ export interface AnalysisReport {
     created_at: string
     updated_at: string
   }
+  created_at?: string
+}
+
+export interface AnalysisHistoryItem {
+  id: number
+  owner: string
+  repo: string
+  overall_score: number
+  summary: string
+  created_at: string
 }
 
 export async function runAnalysis(owner: string, repo: string): Promise<AnalysisReport> {
@@ -36,4 +47,12 @@ export async function runAnalysis(owner: string, repo: string): Promise<Analysis
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ owner, repo, language: getLanguageSnapshot() }),
   })
+}
+
+export async function getAnalysisHistory(): Promise<AnalysisHistoryItem[]> {
+  return apiFetch<AnalysisHistoryItem[]>("/analysis/history")
+}
+
+export async function getAnalysisReportById(reportId: number): Promise<AnalysisReport> {
+  return apiFetch<AnalysisReport>(`/analysis/history/${reportId}`)
 }

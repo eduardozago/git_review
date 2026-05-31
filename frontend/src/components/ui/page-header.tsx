@@ -36,7 +36,7 @@ function LogoutButton() {
     <button
       onClick={handleLogout}
       title={copy.signOut}
-      className="rounded-md p-1.5 text-dim transition-colors hover:text-muted-foreground"
+      className="rounded-md p-1.5 text-destructive transition-colors hover:text-muted-foreground"
     >
       <LogOut size={16} />
     </button>
@@ -47,7 +47,7 @@ export function PageHeader({ backHref, breadcrumb, actions }: PageHeaderProps) {
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    getMe().then(setUser).catch(() => {})
+    getMe().then(setUser).catch(() => { })
   }, [])
 
   return (

@@ -1,6 +1,6 @@
 "use client"
 
-import type { DashboardStats } from "@/lib/mock/dashboard"
+import type { DashboardStats } from "@/lib/dashboard"
 import { useCopy } from "@/lib/use-language"
 
 import { dashboardCopy } from "./copy"
@@ -17,11 +17,10 @@ export function StatsStrip({ stats }: StatsStripProps) {
     { label: labels.reportsGenerated, value: stats.reportsGenerated, hint: labels.allTime },
     { label: labels.averageScore, value: stats.averageScore, hint: "/ 100" },
     { label: labels.bestDimension, value: stats.bestDimension.score, hint: stats.bestDimension.label },
-    { label: labels.daysAnalyzed, value: stats.daysAnalyzed, hint: labels.thisMonth },
   ]
 
   return (
-    <div className="mb-10 grid grid-cols-2 overflow-hidden rounded-xl border border-border bg-card lg:grid-cols-4">
+    <div className="mb-10 grid grid-cols-3 overflow-hidden rounded-xl border border-border bg-card lg:grid-cols-3">
       {items.map((item, index) => (
         <div
           key={item.label}
