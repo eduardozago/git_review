@@ -56,7 +56,7 @@ export function ReportPage({ report }: ReportPageProps) {
         >
           {/* Left: back + breadcrumb */}
           <div className="flex items-center gap-3.5">
-            <Button variant="ghost" size="sm" icon={ArrowLeft} href="/repos">
+            <Button variant="ghost" size="sm" icon={ArrowLeft} href="/dashboard">
               {reportCopy.back}
             </Button>
             <span className="text-faint">/</span>

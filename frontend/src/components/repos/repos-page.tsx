@@ -91,7 +91,7 @@ export function ReposPage() {
         onStart={handleStart}
       />
 
-      <main className="mx-auto max-w-275 px-6 py-12 pb-20 md:px-8">
+      <main className="mx-auto max-w-300 px-6 py-12 pb-20 md:px-8">
         <div className="mb-7">
           <h1 className="text-8 font-semibold tracking-tight text-strong">
             {reposCopy.heading}
