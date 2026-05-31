@@ -3,18 +3,22 @@
 import { useEffect, useState } from "react"
 
 import { getMe } from "@/lib/auth"
+import { useCopy } from "@/lib/use-language"
 import { getDashboardData } from "@/lib/mock/dashboard"
 import type { User } from "@/lib/types/user"
+import { PageHeader } from "@/components/ui/page-header"
 
-import { DashboardHeader } from "./dashboard-header"
 import { LatestReportCard } from "./latest-report-card"
 import { RecentAnalyses } from "./recent-analyses"
 import { SectionHeader } from "./section-header"
 import { StatsStrip } from "./stats-strip"
 import { dashboardCopy } from "./copy"
+import { Plus } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export function DashboardClient() {
   const [user, setUser] = useState<User | null>(null)
+  const copy = useCopy(dashboardCopy)
 
   useEffect(() => {
     getMe().then(setUser).catch(() => {})
@@ -28,12 +32,20 @@ export function DashboardClient() {
 
   return (
     <div className="min-h-screen bg-background">
-      <DashboardHeader username={user.login} avatarUrl={user.avatar_url} />
+      <PageHeader
+        breadcrumb={user.login}
+        actions={
+          <Button variant="secondary" size="sm" href="/repos">
+            <Plus size={16} />
+            {copy.newAnalysis}
+          </Button>
+        }
+      />
 
       <main className="mx-auto max-w-300 px-6 py-10 pb-20 md:px-8">
         <div className="mb-8">
           <p className="mono m-0 text-xs tracking-wide text-dim uppercase">
-            {dashboardCopy.greeting}
+            {copy.greeting}
           </p>
           <h1 className="mt-2 text-8 font-semibold tracking-tight text-strong">
             {user.name ?? user.login}{" "}
@@ -45,7 +57,7 @@ export function DashboardClient() {
 
         {latest && (
           <section className="mb-10">
-            <SectionHeader title={dashboardCopy.latestReport} />
+            <SectionHeader title={copy.latestReport} />
             <LatestReportCard repo={latest} />
           </section>
         )}

@@ -1,4 +1,20 @@
-export const reposCopy = {
+const pt = {
+  heading: "Escolha um repositório",
+  sub: "Vamos escanear a branch padrão. Leva cerca de um minuto.",
+  searchPlaceholder: "Filtrar repositórios…",
+  sortRecent: "Atualizado recentemente",
+  sortStars: "Mais estrelas",
+  sortAz: "A → Z",
+  allLanguages: "Todos",
+  startAnalysis: "Iniciar análise",
+  starting: "Iniciando…",
+  cancel: "Cancelar",
+  repoCount: (count: number) => `${count} repositórios`,
+  lastScore: (score: number) => `Último: ${score}`,
+  empty: "Nenhum repositório encontrado.",
+}
+
+const en = {
   heading: "Choose a repository",
   sub: "We'll scan the default branch. Takes about a minute.",
   searchPlaceholder: "Filter repositories…",
@@ -12,4 +28,6 @@ export const reposCopy = {
   repoCount: (count: number) => `${count} repositories`,
   lastScore: (score: number) => `Last: ${score}`,
   empty: "No repos match those filters.",
-} as const
+}
+
+export const reposCopy = { pt, en }

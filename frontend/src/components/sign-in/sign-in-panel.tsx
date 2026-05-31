@@ -1,14 +1,17 @@
+"use client"
+
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
+import { useCopy } from "@/lib/use-language"
 
 import { signInCopy } from "./copy"
 import { GitHubSignInButton } from "./github-sign-in-button"
 
 export function SignInPanel() {
-  const { heading, sub, back, terms, footer } = signInCopy
+  const { heading, sub, back, terms, footer } = useCopy(signInCopy)
 
   return (
     <div className="flex min-h-screen flex-col px-6 py-8 md:px-12 lg:px-14">

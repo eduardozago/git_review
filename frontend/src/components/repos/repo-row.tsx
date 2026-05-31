@@ -1,7 +1,10 @@
+"use client"
+
 import { Check, Star } from "lucide-react"
 
 import { LangPill } from "@/components/dashboard/lang-pill"
 import { Badge } from "@/components/ui/badge"
+import { useCopy } from "@/lib/use-language"
 import type { RepoSummary } from "@/lib/types/repo"
 import { cn } from "@/lib/utils"
 
@@ -15,6 +18,8 @@ interface RepoRowProps {
 }
 
 export function RepoRow({ repo, selected, onSelect, isFirst }: RepoRowProps) {
+  const copy = useCopy(reposCopy)
+
   return (
     <button
       type="button"
@@ -38,25 +43,16 @@ export function RepoRow({ repo, selected, onSelect, isFirst }: RepoRowProps) {
 
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="mono text-sm font-medium text-strong">
-            {repo.name}
-          </span>
+          <span className="mono text-sm font-medium text-strong">{repo.name}</span>
           {repo.analyzed && repo.score !== null && (
-            <Badge tone="outline" size="sm">
-              {reposCopy.lastScore(repo.score)}
-            </Badge>
+            <Badge tone="outline" size="sm">{copy.lastScore(repo.score)}</Badge>
           )}
         </div>
-        <p className="mt-1 truncate text-3.25 text-muted-foreground">
-          {repo.description}
-        </p>
+        <p className="mt-1 truncate text-3.25 text-muted-foreground">{repo.description}</p>
       </div>
 
       <div className="hidden min-w-24 sm:flex">
-        <LangPill
-          name={repo.lang}
-          color={repo.langColor}
-        />
+        <LangPill name={repo.lang} color={repo.langColor} />
       </div>
 
       <div className="hidden items-center gap-1 text-xs text-dim sm:flex">
@@ -64,9 +60,7 @@ export function RepoRow({ repo, selected, onSelect, isFirst }: RepoRowProps) {
         <span className="mono">{repo.stars}</span>
       </div>
 
-      <div className="hidden min-w-22.5 text-right text-xs text-dim sm:block">
-        {repo.updated}
-      </div>
+      <div className="hidden min-w-22.5 text-right text-xs text-dim sm:block">{repo.updated}</div>
     </button>
   )
 }

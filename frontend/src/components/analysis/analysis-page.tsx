@@ -2,18 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { X } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/ui/logo";
+import { PageHeader } from "@/components/ui/page-header";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { runAnalysis, type AnalysisReport } from "@/lib/analysis";
+import { runAnalysis } from "@/lib/analysis";
+import { useCopy } from "@/lib/use-language";
 
 import { analysisCopy } from "./copy";
 
 export function AnalysisPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const copy = useCopy(analysisCopy);
   const repoFullName = searchParams.get("repo") || "";
   const [owner, repo] = repoFullName.includes("/")
     ? repoFullName.split("/")
@@ -52,14 +52,17 @@ export function AnalysisPage() {
   }, [owner, repo, router]);
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-8">
-      <div className="w-full max-w-300">
-        <div className="flex justify-between items-center mb-9">
-          <Logo />
-          <Button variant="ghost" size="sm" icon={X} href="/repos">
-            {analysisCopy.cancel}
+    <div className="min-h-screen bg-background flex flex-col">
+      <PageHeader
+        backHref="/repos"
+        actions={
+          <Button variant="ghost" size="sm" href="/repos">
+            {copy.cancel}
           </Button>
-        </div>
+        }
+      />
+      <div className="flex flex-1 items-center justify-center p-8">
+      <div className="w-full max-w-300">
 
         <div className="flex items-center gap-4 mb-2">
           {status === "loading" && <Spinner />}
@@ -69,23 +72,21 @@ export function AnalysisPage() {
             <h1 className="text-2xl font-semibold tracking-tight text-foreground m-0">
               {status === "loading" && (
                 <>
-                  Analisando{" "}
+                  {copy.sub.split("—")[0].trim()}{" "}
                   <span className="text-muted-foreground">{repo}</span>
                 </>
               )}
-              {status === "done" && "Análise concluída!"}
-              {status === "error" && "Erro na análise"}
+              {status === "done" && (copy.sub)}
+              {status === "error" && error}
             </h1>
             <p className="text-sm text-muted-foreground mt-1 mb-0">
-              {status === "loading" && analysisCopy.sub}
-              {status === "done" && "Redirecionando para o relatório..."}
-              {status === "error" && error}
+              {status === "loading" && copy.sub}
             </p>
           </div>
           {status === "loading" && (
             <div className="text-right shrink-0">
               <div className="mono text-2.75 text-dim uppercase tracking-widest">
-                Tempo
+                {copy.etaLabel}
               </div>
               <div className="mono text-base text-foreground mt-1">{elapsed}s</div>
             </div>
@@ -96,17 +97,17 @@ export function AnalysisPage() {
           <div className="mt-7">
             <div className="flex justify-between items-center mb-2">
               <span className="mono text-2.75 text-dim uppercase tracking-widest">
-                Progresso
+                {copy.overallLabel}
               </span>
             </div>
             <ProgressBar value={Math.min(elapsed * 1.5, 95)} height={4} transitionMs={80} />
             <div className="mt-6 border border-border rounded-xl bg-card p-6">
               <div className="space-y-3 text-sm text-muted-foreground">
-                <StepIndicator active={elapsed < 10} done={elapsed >= 10} label="Coletando dados do repositório..." />
-                <StepIndicator active={elapsed >= 10 && elapsed < 25} done={elapsed >= 25} label="Analisando commits e PRs..." />
-                <StepIndicator active={elapsed >= 25 && elapsed < 40} done={elapsed >= 40} label="Avaliando qualidade do código..." />
-                <StepIndicator active={elapsed >= 40 && elapsed < 55} done={elapsed >= 55} label="Analisando README e estrutura..." />
-                <StepIndicator active={elapsed >= 55} done={false} label="Gerando relatório final..." />
+                <StepIndicator active={elapsed < 10} done={elapsed >= 10} label={copy.steps[0]} />
+                <StepIndicator active={elapsed >= 10 && elapsed < 25} done={elapsed >= 25} label={copy.steps[1]} />
+                <StepIndicator active={elapsed >= 25 && elapsed < 40} done={elapsed >= 40} label={copy.steps[2]} />
+                <StepIndicator active={elapsed >= 40 && elapsed < 55} done={elapsed >= 55} label={copy.steps[3]} />
+                <StepIndicator active={elapsed >= 55} done={false} label={copy.steps[4]} />
               </div>
             </div>
           </div>
@@ -115,10 +116,11 @@ export function AnalysisPage() {
         {status === "error" && (
           <div className="mt-6">
             <Button variant="secondary" href="/repos">
-              Voltar para repositórios
+              {copy.cancel}
             </Button>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

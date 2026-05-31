@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Folder } from "lucide-react"
 
@@ -5,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ProgressBar } from "@/components/ui/progress-bar"
 import { getScoreLevel } from "@/lib/score-level"
+import { useCopy } from "@/lib/use-language"
 import type { AnalyzedRepo } from "@/lib/types/repo"
 
 import { dashboardCopy } from "./copy"
@@ -15,8 +18,9 @@ interface RecentRepoCardProps {
 }
 
 export function RecentRepoCard({ repo }: RecentRepoCardProps) {
+  const copy = useCopy(dashboardCopy)
   const level = getScoreLevel(repo.score)
-  const levelLabel = dashboardCopy.levels[level.key]
+  const levelLabel = copy.levels[level.key]
 
   return (
     <Link href={`/report/${repo.id}`} className="block">
@@ -24,19 +28,13 @@ export function RecentRepoCard({ repo }: RecentRepoCardProps) {
         <div className="mb-3.5 flex items-center justify-between gap-2">
           <div className="flex min-w-0 items-center gap-2">
             <Folder size={14} className="shrink-0 text-dim" />
-            <span className="mono truncate text-3.25 text-foreground">
-              {repo.name}
-            </span>
+            <span className="mono truncate text-3.25 text-foreground">{repo.name}</span>
           </div>
-          <Badge tone="outline" size="sm">
-            {levelLabel}
-          </Badge>
+          <Badge tone="outline" size="sm">{levelLabel}</Badge>
         </div>
 
         <div className="mb-4 flex items-baseline gap-1">
-          <span className="text-9 leading-[0.95] font-semibold tracking-tighter text-strong">
-            {repo.score}
-          </span>
+          <span className="text-9 leading-[0.95] font-semibold tracking-tighter text-strong">{repo.score}</span>
           <span className="mono text-xs text-dim">/100</span>
         </div>
 

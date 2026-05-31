@@ -2,11 +2,13 @@
 
 import { Button } from "@/components/ui/button"
 import { GitHubIcon } from "@/components/ui/github-icon"
+import { useCopy } from "@/lib/use-language"
 
 import { signInCopy } from "./copy"
 
 export function GitHubSignInButton() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
+  const copy = useCopy(signInCopy)
 
   return (
     <Button
@@ -19,7 +21,7 @@ export function GitHubSignInButton() {
       }}
     >
       <GitHubIcon size={18} />
-      {signInCopy.cta}
+      {copy.cta}
     </Button>
   )
 }

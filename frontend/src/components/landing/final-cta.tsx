@@ -1,10 +1,13 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { GitHubIcon } from "@/components/ui/github-icon"
+import { useCopy } from "@/lib/use-language"
 
 import { landingCopy } from "./copy"
 
 export function LandingFinalCta() {
-  const { finalCta, hero } = landingCopy
+  const { finalCta, hero } = useCopy(landingCopy)
 
   return (
     <section className="border-t border-border px-6 py-24 text-center md:px-8">

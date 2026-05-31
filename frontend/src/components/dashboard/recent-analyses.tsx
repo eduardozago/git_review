@@ -1,6 +1,9 @@
+"use client"
+
 import { ArrowRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { useCopy } from "@/lib/use-language"
 import type { AnalyzedRepo } from "@/lib/types/repo"
 
 import { dashboardCopy } from "./copy"
@@ -13,13 +16,15 @@ interface RecentAnalysesProps {
 }
 
 export function RecentAnalyses({ repos }: RecentAnalysesProps) {
+  const copy = useCopy(dashboardCopy)
+
   return (
     <section>
       <SectionHeader
-        title={dashboardCopy.recentAnalyses}
+        title={copy.recentAnalyses}
         action={
           <Button variant="ghost" size="sm" type="button">
-            {dashboardCopy.viewAll}
+            {copy.viewAll}
             <ArrowRight size={16} />
           </Button>
         }

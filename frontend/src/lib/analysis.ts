@@ -1,4 +1,5 @@
 import { apiFetch } from "./api"
+import { getLanguageSnapshot } from "./i18n"
 
 export interface AnalysisDimension {
   dimension: string
@@ -33,6 +34,6 @@ export async function runAnalysis(owner: string, repo: string): Promise<Analysis
   return apiFetch<AnalysisReport>("/analysis", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ owner, repo }),
+    body: JSON.stringify({ owner, repo, language: getLanguageSnapshot() }),
   })
 }
