@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft, Code2, Download, Layers, LayoutGrid, Share2, Shield, Sparkles, Target } from "lucide-react"
+import { Code2, Download, Layers, LayoutGrid, Share2, Shield, Sparkles, Target } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { PageHeader } from "@/components/ui/page-header"
+import { useCopy } from "@/lib/use-language"
 import type { Report } from "@/lib/types/report"
 
 import { reportCopy } from "./copy"
@@ -21,15 +23,6 @@ interface TabDef {
   icon: LucideIcon
 }
 
-const TABS: TabDef[] = [
-  { id: "overview", label: reportCopy.tabs.overview, icon: Target },
-  { id: "clean", label: reportCopy.tabs.clean, icon: Code2 },
-  { id: "patterns", label: reportCopy.tabs.patterns, icon: Layers },
-  { id: "system", label: reportCopy.tabs.system, icon: LayoutGrid },
-  { id: "practices", label: reportCopy.tabs.practices, icon: Shield },
-  { id: "next", label: reportCopy.tabs.next, icon: Sparkles },
-]
-
 const DIM_TAB_IDS = new Set(["clean", "patterns", "system", "practices"])
 
 interface ReportPageProps {
@@ -37,7 +30,17 @@ interface ReportPageProps {
 }
 
 export function ReportPage({ report }: ReportPageProps) {
+  const copy = useCopy(reportCopy)
   const [tab, setTab] = useState<TabId>("overview")
+
+  const TABS: TabDef[] = [
+    { id: "overview", label: copy.tabs.overview, icon: Target },
+    { id: "clean", label: copy.tabs.clean, icon: Code2 },
+    { id: "patterns", label: copy.tabs.patterns, icon: Layers },
+    { id: "system", label: copy.tabs.system, icon: LayoutGrid },
+    { id: "practices", label: copy.tabs.practices, icon: Shield },
+    { id: "next", label: copy.tabs.next, icon: Sparkles },
+  ]
 
   const activeDim = DIM_TAB_IDS.has(tab)
     ? report.dimensions.find((d) => d.id === tab)
@@ -45,47 +48,24 @@ export function ReportPage({ report }: ReportPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Sticky nav */}
-      <header
-        className="sticky top-0 z-30 border-b border-border bg-background"
-        style={{ top: 0 }}
-      >
-        <div
-          className="mx-auto flex items-center justify-between px-8"
-          style={{ maxWidth: 1200, padding: "14px 32px" }}
-        >
-          {/* Left: back + breadcrumb */}
-          <div className="flex items-center gap-3.5">
-            <Button variant="ghost" size="sm" icon={ArrowLeft} href="/dashboard">
-              {reportCopy.back}
-            </Button>
-            <span className="text-faint">/</span>
-            <div className="flex items-center gap-2">
-              <span className="mono text-sm text-foreground">
-                {report.owner}/{report.repo}
-              </span>
-              <span className="mono text-sm text-dim">· {report.commit}</span>
-            </div>
-          </div>
-
-          {/* Right: share + export */}
-          <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" icon={Share2}>
-              {reportCopy.share}
-            </Button>
-            <Button variant="secondary" size="sm" icon={Download}>
-              {reportCopy.exportPdf}
-            </Button>
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        backHref="/dashboard"
+        breadcrumb={`${report.owner}/${report.repo}`}
+      />
 
       <main
         className="mx-auto px-8 pb-24"
         style={{ maxWidth: 1200, paddingTop: 48 }}
       >
-        {/* Hero */}
-        <ReportHero report={report} />
+        <div className="flex items-start justify-between gap-4 mb-8">
+          <div className="flex-1 min-w-0">
+            <ReportHero report={report} />
+          </div>
+          <div className="flex items-center gap-2 shrink-0 pt-1">
+            <Button variant="secondary" size="sm" icon={Share2}>{copy.share}</Button>
+            <Button variant="secondary" size="sm" icon={Download}>{copy.exportPdf}</Button>
+          </div>
+        </div>
 
         {/* Tab bar */}
         <div
@@ -148,10 +128,7 @@ export function ReportPage({ report }: ReportPageProps) {
           })}
         </div>
 
-        {/* Tab content */}
-        {tab === "overview" && (
-          <OverviewTab report={report} onJumpTab={(id) => setTab(id as TabId)} />
-        )}
+        {tab === "overview" && <OverviewTab report={report} onJumpTab={(id) => setTab(id as TabId)} />}
         {activeDim && <DimensionTab dim={activeDim} />}
         {tab === "next" && <NextStepsTab report={report} />}
       </main>

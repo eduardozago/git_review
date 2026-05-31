@@ -1,5 +1,32 @@
-export const dashboardCopy = {
-  greeting: "Welcome back",
+const pt = {
+  greeting: "BEM-VINDO DE VOLTA",
+  newAnalysis: "Nova análise",
+  recentAnalyses: "Análises recentes",
+  viewAll: "Ver tudo",
+  latestReport: "Último relatório",
+  openReport: "Abrir relatório",
+  signOut: "Sair",
+  overallScore: "Pontuação geral",
+  files: "arquivos",
+  stats: {
+    reportsGenerated: "Relatórios gerados",
+    averageScore: "Média",
+    bestDimension: "Melhor dimensão",
+    daysAnalyzed: "Dias analisados",
+    allTime: "total",
+    thisMonth: "este mês",
+  },
+  newAnalysisHint: "Escolha outro repositório",
+  levels: {
+    junior: "Iniciante",
+    mid: "Intermediário",
+    senior: "Sênior",
+    architect: "Arquiteto",
+  },
+}
+
+const en = {
+  greeting: "WELCOME BACK",
   newAnalysis: "New analysis",
   recentAnalyses: "Recent analyses",
   viewAll: "View all",
@@ -23,4 +50,6 @@ export const dashboardCopy = {
     senior: "Senior",
     architect: "Architect",
   },
-} as const
+}
+
+export const dashboardCopy = { pt, en }

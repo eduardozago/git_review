@@ -20,6 +20,7 @@ import {
 import { getRepos, selectRepo } from "@/lib/repos"
 import type { RepoSummary } from "@/lib/types/repo"
 
+import { useCopy } from "@/lib/use-language"
 import { reposCopy } from "./copy"
 import { RepoRow } from "./repo-row"
 import { ReposHeader } from "./repos-header"
@@ -31,6 +32,7 @@ function getErrorMessage(err: unknown): string {
 
 export function ReposPage() {
   const router = useRouter()
+  const copy = useCopy(reposCopy)
 
   const [repos, setRepos] = useState<RepoSummary[]>([])
   const [loading, setLoading] = useState(true)
@@ -94,10 +96,10 @@ export function ReposPage() {
       <main className="mx-auto max-w-300 px-6 py-12 pb-20 md:px-8">
         <div className="mb-7">
           <h1 className="text-8 font-semibold tracking-tight text-strong">
-            {reposCopy.heading}
+            {copy.heading}
           </h1>
           <p className="mt-2.5 text-3.75 text-muted-foreground">
-            {reposCopy.sub}
+            {copy.sub}
           </p>
         </div>
 
@@ -107,11 +109,11 @@ export function ReposPage() {
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={reposCopy.searchPlaceholder}
+              placeholder={copy.searchPlaceholder}
               className="h-auto flex-1 border-0 bg-transparent px-2 shadow-none focus-visible:ring-0"
             />
             <span className="mono shrink-0 text-xs text-dim">
-              {reposCopy.repoCount(filtered.length)}
+              {copy.repoCount(filtered.length)}
             </span>
           </div>
 
@@ -123,7 +125,7 @@ export function ReposPage() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">
-              <SelectItem value="all">{reposCopy.allLanguages}</SelectItem>
+              <SelectItem value="all">{copy.allLanguages}</SelectItem>
               {languages.map((lang) => (
                 <SelectItem key={lang} value={lang}>
                   {lang}
@@ -140,9 +142,9 @@ export function ReposPage() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">
-              <SelectItem value="recent">{reposCopy.sortRecent}</SelectItem>
-              <SelectItem value="stars">{reposCopy.sortStars}</SelectItem>
-              <SelectItem value="az">{reposCopy.sortAz}</SelectItem>
+              <SelectItem value="recent">{copy.sortRecent}</SelectItem>
+              <SelectItem value="stars">{copy.sortStars}</SelectItem>
+              <SelectItem value="az">{copy.sortAz}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -150,12 +152,12 @@ export function ReposPage() {
         <div className="overflow-hidden rounded-xl border border-border bg-card">
           {loading ? (
             <p className="px-6 py-16 text-center text-dim">
-              Loading repositories…
+              {copy.sub}
             </p>
           ) : error ? (
             <p className="px-6 py-16 text-center text-destructive">{error}</p>
           ) : filtered.length === 0 ? (
-            <p className="px-6 py-16 text-center text-dim">{reposCopy.empty}</p>
+            <p className="px-6 py-16 text-center text-dim">{copy.empty}</p>
           ) : (
             filtered.map((repo, index) => (
               <RepoRow

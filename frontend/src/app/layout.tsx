@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 
-import { DEFAULT_THEME, THEME_STORAGE_KEY } from "@/lib/theme"
+import { DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY } from "@/lib/i18n"
 
 import "./globals.css"
 
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
 
 const themeInitScript = `(() => {
   try {
-    const stored = localStorage.getItem("${THEME_STORAGE_KEY}");
-    const theme = stored === "light" || stored === "dark" ? stored : "${DEFAULT_THEME}";
-    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.setAttribute("data-theme", "dark");
+    const lang = localStorage.getItem("${LANGUAGE_STORAGE_KEY}");
+    document.documentElement.setAttribute("data-lang", lang === "en" ? "en" : "${DEFAULT_LANGUAGE}");
   } catch {}
 })();`
 
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme={DEFAULT_THEME}
+      data-theme="dark"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >

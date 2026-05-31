@@ -1,4 +1,7 @@
+"use client"
+
 import type { DashboardStats } from "@/lib/mock/dashboard"
+import { useCopy } from "@/lib/use-language"
 
 import { dashboardCopy } from "./copy"
 
@@ -7,29 +10,14 @@ interface StatsStripProps {
 }
 
 export function StatsStrip({ stats }: StatsStripProps) {
-  const { stats: labels } = dashboardCopy
+  const copy = useCopy(dashboardCopy)
+  const labels = copy.stats
 
   const items = [
-    {
-      label: labels.reportsGenerated,
-      value: stats.reportsGenerated,
-      hint: labels.allTime,
-    },
-    {
-      label: labels.averageScore,
-      value: stats.averageScore,
-      hint: "/ 100",
-    },
-    {
-      label: labels.bestDimension,
-      value: stats.bestDimension.score,
-      hint: stats.bestDimension.label,
-    },
-    {
-      label: labels.daysAnalyzed,
-      value: stats.daysAnalyzed,
-      hint: labels.thisMonth,
-    },
+    { label: labels.reportsGenerated, value: stats.reportsGenerated, hint: labels.allTime },
+    { label: labels.averageScore, value: stats.averageScore, hint: "/ 100" },
+    { label: labels.bestDimension, value: stats.bestDimension.score, hint: stats.bestDimension.label },
+    { label: labels.daysAnalyzed, value: stats.daysAnalyzed, hint: labels.thisMonth },
   ]
 
   return (
@@ -44,16 +32,10 @@ export function StatsStrip({ stats }: StatsStripProps) {
             index >= 2 ? "border-t lg:border-t-0" : "",
           ].join(" ")}
         >
-          <div className="mono text-2.75 tracking-wide text-dim uppercase">
-            {item.label}
-          </div>
+          <div className="mono text-2.75 tracking-wide text-dim uppercase">{item.label}</div>
           <div className="mt-2.5 flex items-baseline gap-1.5">
-            <span className="text-7 font-semibold tracking-tight text-strong">
-              {item.value}
-            </span>
-            <span className="mono text-xs whitespace-nowrap text-dim">
-              {item.hint}
-            </span>
+            <span className="text-7 font-semibold tracking-tight text-strong">{item.value}</span>
+            <span className="mono text-xs whitespace-nowrap text-dim">{item.hint}</span>
           </div>
         </div>
       ))}

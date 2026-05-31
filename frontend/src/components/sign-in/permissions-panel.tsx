@@ -1,9 +1,13 @@
+"use client"
+
 import { Check, Shield, X } from "lucide-react"
+
+import { useCopy } from "@/lib/use-language"
 
 import { signInCopy } from "./copy"
 
 export function PermissionsPanel() {
-  const { scope } = signInCopy
+  const { scope } = useCopy(signInCopy)
 
   return (
     <div className="flex min-h-70 flex-col justify-center border-t border-border bg-elev px-6 py-10 md:min-h-screen md:border-t-0 md:border-l md:px-12 lg:px-14">

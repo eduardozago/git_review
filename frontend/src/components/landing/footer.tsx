@@ -1,9 +1,12 @@
+"use client"
+
 import { Logo } from "@/components/ui/logo"
+import { useCopy } from "@/lib/use-language"
 
 import { landingCopy } from "./copy"
 
 export function LandingFooter() {
-  const { footer } = landingCopy
+  const { footer } = useCopy(landingCopy)
 
   return (
     <footer className="border-t border-border px-6 py-10 md:px-8">
@@ -14,15 +17,9 @@ export function LandingFooter() {
           <span>{footer.made}</span>
         </div>
         <div className="flex flex-wrap items-center gap-5">
-          <a href="#" className="transition-colors hover:text-muted-foreground">
-            {footer.links.product}
-          </a>
-          <a href="#" className="transition-colors hover:text-muted-foreground">
-            {footer.links.company}
-          </a>
-          <a href="#" className="transition-colors hover:text-muted-foreground">
-            {footer.links.legal}
-          </a>
+          <a href="#" className="transition-colors hover:text-muted-foreground">{footer.links.product}</a>
+          <a href="#" className="transition-colors hover:text-muted-foreground">{footer.links.company}</a>
+          <a href="#" className="transition-colors hover:text-muted-foreground">{footer.links.legal}</a>
         </div>
       </div>
     </footer>

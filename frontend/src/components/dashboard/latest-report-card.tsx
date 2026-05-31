@@ -1,9 +1,12 @@
+"use client"
+
 import { ArrowRight, File, Folder, Star, Timer } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { getScoreLevel } from "@/lib/score-level"
+import { useCopy } from "@/lib/use-language"
 import type { AnalyzedRepo } from "@/lib/types/repo"
 
 import { dashboardCopy } from "./copy"
@@ -13,21 +16,18 @@ interface LatestReportCardProps {
 }
 
 export function LatestReportCard({ repo }: LatestReportCardProps) {
+  const copy = useCopy(dashboardCopy)
   const level = getScoreLevel(repo.score)
-  const levelLabel = dashboardCopy.levels[level.key]
+  const levelLabel = copy.levels[level.key]
 
   return (
     <Card className="gap-0 overflow-hidden p-0">
       <div className="grid min-h-50 md:grid-cols-[65_1fr]">
         <div className="flex flex-col justify-between border-b border-border bg-elev p-7 md:border-r md:border-b-0">
-          <div className="mono text-2.75 tracking-wide text-dim uppercase">
-            {dashboardCopy.overallScore}
-          </div>
+          <div className="mono text-2.75 tracking-wide text-dim uppercase">{copy.overallScore}</div>
           <div>
             <div className="flex items-baseline gap-1">
-              <span className="text-22 leading-[0.95] font-semibold tracking-tighter text-strong">
-                {repo.score}
-              </span>
+              <span className="text-22 leading-[0.95] font-semibold tracking-tighter text-strong">{repo.score}</span>
               <span className="mono text-sm text-dim">/100</span>
             </div>
             <div className="mt-2.5">
@@ -40,23 +40,17 @@ export function LatestReportCard({ repo }: LatestReportCardProps) {
           <div>
             <div className="mb-2 flex flex-wrap items-center gap-2.5">
               <Folder size={14} className="text-muted-foreground" />
-              <span className="mono text-3.25 text-foreground">
-                {repo.name}
-              </span>
-              <Badge tone="outline" size="sm">
-                {repo.lang}
-              </Badge>
+              <span className="mono text-3.25 text-foreground">{repo.name}</span>
+              <Badge tone="outline" size="sm">{repo.lang}</Badge>
             </div>
-            <p className="mt-2 max-w-130 text-sm leading-relaxed text-muted-foreground">
-              {repo.description}
-            </p>
+            <p className="mt-2 max-w-130 text-sm leading-relaxed text-muted-foreground">{repo.description}</p>
           </div>
 
           <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-4 text-xs text-dim">
               <span className="flex items-center gap-1.5">
                 <File size={12} />
-                {repo.files} {dashboardCopy.files}
+                {repo.files} {copy.files}
               </span>
               {repo.analyzedAgo && (
                 <span className="flex items-center gap-1.5">
@@ -70,7 +64,7 @@ export function LatestReportCard({ repo }: LatestReportCardProps) {
               </span>
             </div>
             <Button variant="primary" size="sm" href={`/report/${repo.id}`}>
-              {dashboardCopy.openReport}
+              {copy.openReport}
               <ArrowRight size={16} />
             </Button>
           </div>
