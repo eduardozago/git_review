@@ -75,8 +75,8 @@ export function ReposPage() {
     setIsStarting(true)
     setError(null)
     try {
-      const selection = await selectRepo(repo)
-      router.push(`/analysis?selection=${selection.id}`)
+      await selectRepo(repo)
+      router.push(`/analysis?repo=${encodeURIComponent(repo.full_name)}`)
     } catch (err) {
       setError(getErrorMessage(err))
       setIsStarting(false)

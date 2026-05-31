@@ -1,7 +1,7 @@
 export const analysisCopy = {
-  sub: "Hang tight — building your report.",
-  etaLabel: "Estimated time",
-  overallLabel: "Overall",
-  logLabel: "Pipeline log",
-  cancel: "Cancel",
+  sub: "Aguarde — gerando seu relatório.",
+  etaLabel: "Tempo estimado",
+  overallLabel: "Progresso",
+  logLabel: "Log da pipeline",
+  cancel: "Cancelar",
 } as const;
