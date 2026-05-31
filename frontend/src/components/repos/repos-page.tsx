@@ -104,13 +104,13 @@ export function ReposPage() {
         </div>
 
         <div className="mb-4 grid gap-2.5 md:grid-cols-[1fr_auto_auto]">
-          <div className="flex h-10 items-center gap-2 rounded-2.5 border border-border bg-card px-3">
+          <div className="flex h-8 items-center gap-2 rounded-full border border-rounded bg-card px-3">
             <Search size={14} className="shrink-0 text-dim" />
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={copy.searchPlaceholder}
-              className="h-auto flex-1 border-0 bg-transparent px-2 shadow-none focus-visible:ring-0"
+              className="h-auto flex-1 rounded-md border-0 bg-transparent px-2 shadow-none focus-visible:ring-0"
             />
             <span className="mono shrink-0 text-xs text-dim">
               {copy.repoCount(filtered.length)}

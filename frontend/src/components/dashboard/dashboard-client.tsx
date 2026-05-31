@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react"
 
 import { getMe } from "@/lib/auth"
+import { getDashboardData, type DashboardData } from "@/lib/dashboard"
 import { useCopy } from "@/lib/use-language"
-import { getDashboardData } from "@/lib/mock/dashboard"
 import type { User } from "@/lib/types/user"
 import { PageHeader } from "@/components/ui/page-header"
 
@@ -18,15 +18,27 @@ import { Button } from "@/components/ui/button"
 
 export function DashboardClient() {
   const [user, setUser] = useState<User | null>(null)
+  const [data, setData] = useState<DashboardData | null>(null)
   const copy = useCopy(dashboardCopy)
 
   useEffect(() => {
-    getMe().then(setUser).catch(() => {})
+    getMe().then(setUser).catch(() => { })
+    getDashboardData().then(setData).catch(() => {
+      setData({
+        analyzedRepos: [],
+        stats: {
+          reportsGenerated: 0,
+          averageScore: 0,
+          bestDimension: { score: 0, label: "Overall" },
+          daysAnalyzed: 0,
+        },
+      })
+    })
   }, [])
 
-  if (!user) return null
+  if (!user || !data) return null
 
-  const { analyzedRepos, stats } = getDashboardData()
+  const { analyzedRepos, stats } = data
   const latest = analyzedRepos[0]
   const recent = analyzedRepos.slice(1)
 

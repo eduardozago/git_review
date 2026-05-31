@@ -19,8 +19,13 @@ export function AnalysisPage() {
     ? repoFullName.split("/")
     : ["", repoFullName];
 
-  const [status, setStatus] = useState<"loading" | "done" | "error">("loading");
-  const [error, setError] = useState("");
+  const invalidRepo = !owner || !repo;
+  const [status, setStatus] = useState<"loading" | "done" | "error">(
+    invalidRepo ? "error" : "loading"
+  );
+  const [error, setError] = useState(
+    invalidRepo ? "Repositório não especificado." : ""
+  );
   const [elapsed, setElapsed] = useState(0);
 
   useEffect(() => {
@@ -32,11 +37,7 @@ export function AnalysisPage() {
   }, []);
 
   useEffect(() => {
-    if (!owner || !repo) {
-      setStatus("error");
-      setError("Repositório não especificado.");
-      return;
-    }
+    if (invalidRepo) return;
 
     runAnalysis(owner, repo)
       .then((report) => {
@@ -49,12 +50,13 @@ export function AnalysisPage() {
         setStatus("error");
         setError(err.message || "Erro ao analisar repositório.");
       });
-  }, [owner, repo, router]);
+  }, [invalidRepo, owner, repo, router]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <PageHeader
         backHref="/repos"
+        breadcrumb={repoFullName || undefined}
         actions={
           <Button variant="ghost" size="sm" href="/repos">
             {copy.cancel}
@@ -62,65 +64,65 @@ export function AnalysisPage() {
         }
       />
       <div className="flex flex-1 items-center justify-center p-8">
-      <div className="w-full max-w-300">
+        <div className="w-full max-w-300">
 
-        <div className="flex items-center gap-4 mb-2">
-          {status === "loading" && <Spinner />}
-          {status === "done" && <DoneIcon />}
-          {status === "error" && <ErrorIcon />}
-          <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-semibold tracking-tight text-foreground m-0">
-              {status === "loading" && (
-                <>
-                  {copy.sub.split("—")[0].trim()}{" "}
-                  <span className="text-muted-foreground">{repo}</span>
-                </>
-              )}
-              {status === "done" && (copy.sub)}
-              {status === "error" && error}
-            </h1>
-            <p className="text-sm text-muted-foreground mt-1 mb-0">
-              {status === "loading" && copy.sub}
-            </p>
-          </div>
-          {status === "loading" && (
-            <div className="text-right shrink-0">
-              <div className="mono text-2.75 text-dim uppercase tracking-widest">
-                {copy.etaLabel}
+          <div className="flex items-center gap-4 mb-2">
+            {status === "loading" && <Spinner />}
+            {status === "done" && <DoneIcon />}
+            {status === "error" && <ErrorIcon />}
+            <div className="flex-1 min-w-0">
+              <h1 className="text-2xl font-semibold tracking-tight text-foreground m-0">
+                {status === "loading" && (
+                  <>
+                    {copy.sub.split("—")[0].trim()}{" "}
+                    <span className="text-muted-foreground">{repo}</span>
+                  </>
+                )}
+                {status === "done" && (copy.sub)}
+                {status === "error" && error}
+              </h1>
+              <p className="text-sm text-muted-foreground mt-1 mb-0">
+                {status === "loading" && copy.sub}
+              </p>
+            </div>
+            {status === "loading" && (
+              <div className="text-right shrink-0">
+                <div className="mono text-2.75 text-dim uppercase tracking-widest">
+                  {copy.etaLabel}
+                </div>
+                <div className="mono text-base text-foreground mt-1">{elapsed}s</div>
               </div>
-              <div className="mono text-base text-foreground mt-1">{elapsed}s</div>
+            )}
+          </div>
+
+          {status === "loading" && (
+            <div className="mt-7">
+              <div className="flex justify-between items-center mb-2">
+                <span className="mono text-2.75 text-dim uppercase tracking-widest">
+                  {copy.overallLabel}
+                </span>
+              </div>
+              <ProgressBar value={Math.min(elapsed * 1.5, 95)} height={4} transitionMs={80} />
+              <div className="mt-6 border border-border rounded-xl bg-card p-6">
+                <div className="space-y-3 text-sm text-muted-foreground">
+                  <StepIndicator active={elapsed < 10} done={elapsed >= 10} label={copy.steps[0]} />
+                  <StepIndicator active={elapsed >= 10 && elapsed < 25} done={elapsed >= 25} label={copy.steps[1]} />
+                  <StepIndicator active={elapsed >= 25 && elapsed < 40} done={elapsed >= 40} label={copy.steps[2]} />
+                  <StepIndicator active={elapsed >= 40 && elapsed < 55} done={elapsed >= 55} label={copy.steps[3]} />
+                  <StepIndicator active={elapsed >= 55} done={false} label={copy.steps[4]} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {status === "error" && (
+            <div className="mt-6">
+              <Button variant="secondary" href="/repos">
+                {copy.cancel}
+              </Button>
             </div>
           )}
         </div>
-
-        {status === "loading" && (
-          <div className="mt-7">
-            <div className="flex justify-between items-center mb-2">
-              <span className="mono text-2.75 text-dim uppercase tracking-widest">
-                {copy.overallLabel}
-              </span>
-            </div>
-            <ProgressBar value={Math.min(elapsed * 1.5, 95)} height={4} transitionMs={80} />
-            <div className="mt-6 border border-border rounded-xl bg-card p-6">
-              <div className="space-y-3 text-sm text-muted-foreground">
-                <StepIndicator active={elapsed < 10} done={elapsed >= 10} label={copy.steps[0]} />
-                <StepIndicator active={elapsed >= 10 && elapsed < 25} done={elapsed >= 25} label={copy.steps[1]} />
-                <StepIndicator active={elapsed >= 25 && elapsed < 40} done={elapsed >= 40} label={copy.steps[2]} />
-                <StepIndicator active={elapsed >= 40 && elapsed < 55} done={elapsed >= 55} label={copy.steps[3]} />
-                <StepIndicator active={elapsed >= 55} done={false} label={copy.steps[4]} />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {status === "error" && (
-          <div className="mt-6">
-            <Button variant="secondary" href="/repos">
-              {copy.cancel}
-            </Button>
-          </div>
-        )}
-      </div>
       </div>
     </div>
   );

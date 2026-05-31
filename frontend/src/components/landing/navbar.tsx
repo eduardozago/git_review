@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { GitHubIcon } from "@/components/ui/github-icon"
 import { LanguageToggle } from "@/components/ui/language-toggle"
 import { Logo } from "@/components/ui/logo"
-import { ThemeToggle } from "@/components/ui/theme-toggle"
+
 import { useCopy } from "@/lib/use-language"
 
 import { landingCopy } from "./copy"

@@ -1,8 +1,5 @@
 "use client"
 
-import { ArrowRight } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
 import { useCopy } from "@/lib/use-language"
 import type { AnalyzedRepo } from "@/lib/types/repo"
 
@@ -22,12 +19,6 @@ export function RecentAnalyses({ repos }: RecentAnalysesProps) {
     <section>
       <SectionHeader
         title={copy.recentAnalyses}
-        action={
-          <Button variant="ghost" size="sm" type="button">
-            {copy.viewAll}
-            <ArrowRight size={16} />
-          </Button>
-        }
       />
       <div className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-3">
         {repos.map((repo) => (

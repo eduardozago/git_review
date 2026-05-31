@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+import { useCopy } from "@/lib/use-language";
+
 import { analysisCopy } from "./copy";
 
 interface LogLine {
@@ -14,6 +16,7 @@ interface PipelineLogProps {
 
 export function PipelineLog({ lines }: PipelineLogProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const copy = useCopy(analysisCopy);
 
   useEffect(() => {
     if (ref.current) ref.current.scrollTop = ref.current.scrollHeight;
@@ -23,7 +26,7 @@ export function PipelineLog({ lines }: PipelineLogProps) {
     <div className="mt-7">
       <div className="flex justify-between items-center mb-2">
         <span className="mono text-2.75 text-dim uppercase tracking-widest">
-          {analysisCopy.logLabel}
+          {copy.logLabel}
         </span>
         <span className="mono text-2.75 text-dim">{lines.length} lines</span>
       </div>
