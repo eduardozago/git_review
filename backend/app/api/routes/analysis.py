@@ -20,6 +20,7 @@ router = APIRouter(prefix="/analysis", tags=["analysis"])
 class AnalysisRequest(BaseModel):
     owner: str
     repo: str
+    language: str = "en"
 
 
 @router.post("")
@@ -35,6 +36,7 @@ async def analyze_repository(
     pipeline = AnalysisPipeline(
         http_client=http_client,
         access_token=current_user.access_token,
+        language=body.language,
     )
 
     try:
