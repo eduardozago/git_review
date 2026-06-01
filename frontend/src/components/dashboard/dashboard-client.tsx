@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 import { getMe } from "@/lib/auth"
 import { getDashboardData, type DashboardData } from "@/lib/dashboard"
@@ -20,9 +21,10 @@ export function DashboardClient() {
   const [user, setUser] = useState<User | null>(null)
   const [data, setData] = useState<DashboardData | null>(null)
   const copy = useCopy(dashboardCopy)
+  const router = useRouter()
 
   useEffect(() => {
-    getMe().then(setUser).catch(() => { })
+    getMe().then(setUser).catch(() => router.replace("/sign-in"))
     getDashboardData().then(setData).catch(() => {
       setData({
         analyzedRepos: [],
