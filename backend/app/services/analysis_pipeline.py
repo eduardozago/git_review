@@ -56,10 +56,10 @@ class AnalysisPipeline:
     Uses parallel execution of independent analyzers (Strategy + Facade patterns).
     """
 
-    def __init__(self, http_client: AsyncClient, access_token: str):
+    def __init__(self, http_client: AsyncClient, access_token: str, language: str = "pt"):
         self._http_client = http_client
         self._access_token = access_token
-        self._llm = LLMClient(http_client)
+        self._llm = LLMClient(http_client, language=language)
 
     async def run(self, owner: str, repo: str) -> FullAnalysisReport:
         # Step 1: Collect all repository data

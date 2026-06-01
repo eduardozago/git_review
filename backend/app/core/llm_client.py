@@ -18,13 +18,26 @@ class LLMResponse:
 class LLMClient:
     """Abstraction over Ollama chat API (remote or local)."""
 
-    def __init__(self, http_client: AsyncClient):
+    _LANG_INSTRUCTIONS = {
+        "en": ("Responda SEMPRE em português brasileiro.", "Always respond in English."),
+        "pt": None,
+    }
+
+    def __init__(self, http_client: AsyncClient, language: str = "pt"):
         self._client = http_client
+        self._language = language
         self._base_url = settings.llm_base_url.rstrip("/")
         self._headers = {
             "Authorization": f"Bearer {settings.ollama_api_key}",
             "Content-Type": "application/json",
         }
+
+    def _apply_language(self, system_prompt: str) -> str:
+        override = self._LANG_INSTRUCTIONS.get(self._language)
+        if override:
+            pt_instruction, en_instruction = override
+            return system_prompt.replace(pt_instruction, en_instruction)
+        return system_prompt
 
     async def chat(
         self,
@@ -36,7 +49,7 @@ class LLMClient:
         payload = {
             "model": settings.llm_model,
             "messages": [
-                {"role": "system", "content": system_prompt},
+                {"role": "system", "content": self._apply_language(system_prompt)},
                 {"role": "user", "content": user_prompt},
             ],
             "stream": False,
