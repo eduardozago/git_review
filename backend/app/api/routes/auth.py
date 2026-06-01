@@ -73,17 +73,10 @@ async def github_callback(
         return _clear_state_and_redirect(f"{settings.frontend_url}?error=auth_failed")
 
     jwt_token = create_access_token(user.github_id)
-    response = _clear_state_and_redirect(f"{settings.frontend_url}/dashboard")
-    response.set_cookie(
-        key=COOKIE_NAME,
-        value=jwt_token,
-        httponly=True,
-        samesite="none" if settings.cookie_secure else "lax",
-        secure=settings.cookie_secure,
-        max_age=COOKIE_MAX_AGE,
-        path="/",
-    )
-    return response
+    # Pass token via URL so the frontend can store it and send it as a Bearer header.
+    # Cross-origin Set-Cookie (third-party cookies) is blocked by modern browsers even
+    # with SameSite=None, making the cookie approach unreliable across Railway/Vercel.
+    return _clear_state_and_redirect(f"{settings.frontend_url}/dashboard?token={jwt_token}")
 
 @router.get("/me", response_model=UserOut)
 async def get_me(current_user: User = Depends(get_current_user)) -> User:
@@ -91,15 +84,7 @@ async def get_me(current_user: User = Depends(get_current_user)) -> User:
 
 @router.post("/logout")
 async def logout() -> Response:
-    response = Response(status_code=204)
-    response.delete_cookie(
-        key=COOKIE_NAME,
-        path="/",
-        samesite="none" if settings.cookie_secure else "lax",
-        secure=settings.cookie_secure,
-        httponly=True,
-    )
-    return response
+    return Response(status_code=204)
 
 def _clear_state_and_redirect(url: str) -> RedirectResponse:
     """Return a redirect that also expires the OAuth state cookie."""

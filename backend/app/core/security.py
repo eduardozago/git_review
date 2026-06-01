@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
-from fastapi import Cookie, Depends, HTTPException, status
+from fastapi import Cookie, Depends, HTTPException, Request, status
 from jose import JWTError, jwt
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -22,6 +22,7 @@ def create_access_token(github_id: int) -> str:
 
 
 async def get_current_user(
+    request: Request,
     access_token: str | None = Cookie(default=None),
     db: AsyncSession = Depends(get_db),
 ) -> User:
@@ -29,11 +30,14 @@ async def get_current_user(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Not authenticated",
     )
-    if not access_token:
+    # Authorization: Bearer <token> takes precedence over cookie (cross-origin production)
+    auth_header = request.headers.get("Authorization", "")
+    token = auth_header[7:] if auth_header.startswith("Bearer ") else access_token
+    if not token:
         raise credentials_exception
     try:
         payload = jwt.decode(
-            access_token,
+            token,
             settings.jwt_secret_key,
             algorithms=[settings.jwt_algorithm],
         )
