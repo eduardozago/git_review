@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
-import { getMe } from "@/lib/auth"
+import { captureTokenFromUrl, getMe } from "@/lib/auth"
 import { getDashboardData, type DashboardData } from "@/lib/dashboard"
 import { useCopy } from "@/lib/use-language"
 import type { User } from "@/lib/types/user"
@@ -24,6 +24,7 @@ export function DashboardClient() {
   const router = useRouter()
 
   useEffect(() => {
+    captureTokenFromUrl()
     getMe().then(setUser).catch(() => router.replace("/sign-in"))
     getDashboardData().then(setData).catch(() => {
       setData({
