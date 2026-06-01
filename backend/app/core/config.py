@@ -11,6 +11,14 @@ class Settings(BaseSettings):
 
     database_url: str
 
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def force_asyncpg_scheme(cls, v: str) -> str:
+        # Railway injects postgresql:// but asyncpg requires postgresql+asyncpg://
+        if v.startswith("postgresql://"):
+            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
+
     jwt_secret_key: str
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 60 * 24 * 7  # 7 days
