@@ -78,7 +78,7 @@ async def github_callback(
         key=COOKIE_NAME,
         value=jwt_token,
         httponly=True,
-        samesite="lax",
+        samesite="none" if settings.cookie_secure else "lax",
         secure=settings.cookie_secure,
         max_age=COOKIE_MAX_AGE,
         path="/",
@@ -95,7 +95,7 @@ async def logout() -> Response:
     response.delete_cookie(
         key=COOKIE_NAME,
         path="/",
-        samesite="lax",
+        samesite="none" if settings.cookie_secure else "lax",
         secure=settings.cookie_secure,
         httponly=True,
     )
