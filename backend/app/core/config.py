@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env", env_file_encoding="utf-8", env_file_override=True
+        env_file=".env", env_file_encoding="utf-8", env_file_override=False
     )
 
     github_client_id: str
@@ -32,6 +32,11 @@ class Settings(BaseSettings):
 
     frontend_url: str
     cookie_secure: bool
+
+    @field_validator("frontend_url", mode="before")
+    @classmethod
+    def strip_frontend_url_slash(cls, v: str) -> str:
+        return v.rstrip("/")
 
     # LLM (Ollama Cloud API)
     ollama_api_key: str
