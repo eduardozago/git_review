@@ -1,6 +1,6 @@
 # GitReview — Backend
 
-FastAPI backend for the GitReview application. Handles GitHub OAuth authentication, user persistence, public repository listing, selection tracking, and (upcoming) AI-powered repository analysis.
+FastAPI backend for the GitReview application. Handles GitHub OAuth authentication, user persistence, public repository listing, selection tracking, and AI-powered repository analysis.
 
 ## Requirements
 
@@ -38,15 +38,22 @@ cp .env.example .env
 
 Open `.env` and fill in the required values:
 
-| Variable               | Description                                            |
-| ---------------------- | ------------------------------------------------------ |
-| `GITHUB_CLIENT_ID`     | From your GitHub OAuth App                             |
-| `GITHUB_CLIENT_SECRET` | From your GitHub OAuth App                             |
-| `GITHUB_REDIRECT_URI`  | Must match the callback URL registered on GitHub       |
-| `DATABASE_URL`         | PostgreSQL connection string                           |
-| `JWT_SECRET_KEY`       | Random secret for signing session tokens               |
-| `FRONTEND_URL`         | URL of the Next.js frontend                            |
-| `COOKIE_SECURE`        | `False` locally, `True` in production (requires HTTPS) |
+| Variable               | Description                                                     |
+| ---------------------- | --------------------------------------------------------------- |
+| `GITHUB_CLIENT_ID`     | From your GitHub OAuth App                                      |
+| `GITHUB_CLIENT_SECRET` | From your GitHub OAuth App                                      |
+| `GITHUB_REDIRECT_URI`  | Must match the callback URL registered on GitHub                |
+| `DATABASE_URL`         | PostgreSQL connection string (`postgresql+asyncpg://...`)       |
+| `JWT_SECRET_KEY`       | Random secret for signing session tokens                        |
+| `JWT_ALGORITHM`        | JWT algorithm — `HS256`                                         |
+| `JWT_EXPIRE_MINUTES`   | Session TTL in minutes — `10080` (7 days)                       |
+| `FRONTEND_URL`         | URL of the Next.js frontend                                     |
+| `COOKIE_SECURE`        | `False` locally, `True` in production (requires HTTPS)          |
+| `OLLAMA_API_KEY`       | Ollama Cloud API key                                            |
+| `LLM_BASE_URL`         | LLM provider base URL                                           |
+| `LLM_MODEL`            | Model name (e.g. `gpt-oss:120b`)                                |
+| `LLM_MAX_TOKENS`       | Max tokens per LLM response — `4096`                            |
+| `LLM_TEMPERATURE`      | Sampling temperature — `0.3`                                    |
 
 Generate a secure `JWT_SECRET_KEY`:
 
@@ -91,33 +98,47 @@ All database tables are created automatically on first startup.
 
 ```
 app/
-├── main.py                        ← app entry point, CORS, lifespan
+├── main.py                              ← app entry point, CORS, lifespan
 ├── core/
-│   ├── config.py                  ← environment variable config (pydantic-settings)
-│   ├── database.py                ← async SQLAlchemy engine and session
-│   └── security.py                ← JWT encoding/decoding, auth dependency
+│   ├── config.py                        ← environment variable config (pydantic-settings)
+│   ├── database.py                      ← async SQLAlchemy engine and session
+│   ├── security.py                      ← JWT encoding/decoding, auth dependency
+│   └── llm_client.py                    ← shared LLM client (Ollama Cloud)
 ├── models/
-│   ├── user.py                    ← User database model
-│   └── repo_selection.py          ← RepoSelection database model
+│   ├── user.py                          ← User database model
+│   ├── repo_selection.py                ← RepoSelection database model
+│   └── analysis_report.py              ← AnalysisReport database model (UUID PK, status, JSON fields)
 ├── services/
-│   ├── auth_service.py            ← GitHub OAuth logic
-│   ├── github_service.py          ← paginated public repo fetch from GitHub API
-│   └── repo_selection_service.py  ← repo selection persistence
+│   ├── auth_service.py                  ← GitHub OAuth logic
+│   ├── github_service.py                ← paginated public repo fetch from GitHub API
+│   ├── github_data_service.py           ← fetch READMEs, languages, commit stats per repo
+│   ├── repo_selection_service.py        ← repo selection persistence
+│   ├── analysis_pipeline.py             ← orchestrates the full analysis flow
+│   └── analyzers/
+│       ├── base.py                      ← base analyzer interface
+│       ├── readme_analyzer.py           ← README quality scoring
+│       ├── commit_analyzer.py           ← commit recency scoring
+│       ├── code_quality_analyzer.py     ← code quality scoring
+│       ├── pr_analyzer.py               ← PR/contribution scoring
+│       └── project_structure_analyzer.py ← project structure scoring
 └── api/routes/
-    ├── auth.py                    ← auth endpoints
-    └── repos.py                   ← repo listing and selection endpoints
+    ├── auth.py                          ← auth endpoints
+    ├── repos.py                         ← repo listing and selection endpoints
+    └── analysis.py                      ← analysis creation and polling endpoints
 ```
 
 ## API
 
-| Method | Path              | Auth | Description                                        |
-| ------ | ----------------- | ---- | -------------------------------------------------- |
-| `GET`  | `/health`         |      | Health check                                       |
-| `GET`  | `/auth/github`    |      | Starts GitHub OAuth flow                           |
-| `GET`  | `/auth/callback`  |      | GitHub OAuth callback — sets session cookie        |
-| `GET`  | `/auth/me`        | ✓    | Returns the authenticated user                     |
-| `POST` | `/auth/logout`    | ✓    | Clears the session cookie (204)                    |
-| `GET`  | `/repos`          | ✓    | Lists user's public repos from GitHub              |
+| Method | Path              | Auth | Description                                          |
+| ------ | ----------------- | ---- | ---------------------------------------------------- |
+| `GET`  | `/health`         |      | Health check                                         |
+| `GET`  | `/auth/github`    |      | Starts GitHub OAuth flow                             |
+| `GET`  | `/auth/callback`  |      | GitHub OAuth callback — sets session cookie          |
+| `GET`  | `/auth/me`        | ✓    | Returns the authenticated user                       |
+| `POST` | `/auth/logout`    | ✓    | Clears the session cookie (204)                      |
+| `GET`  | `/repos`          | ✓    | Lists user's public repos from GitHub                |
 | `POST` | `/repos/select`   | ✓    | Persists selected repo, returns record with id (201) |
+| `POST` | `/analysis`       | ✓    | Creates analysis and kicks off the pipeline (201)    |
+| `GET`  | `/analysis/{id}`  | ✓    | Polls analysis status and returns result when ready  |
 
 Interactive docs available at **http://localhost:8000/docs** when the server is running.
