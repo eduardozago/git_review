@@ -15,9 +15,9 @@ class Settings(BaseSettings):
     @field_validator("database_url", mode="before")
     @classmethod
     def force_asyncpg_scheme(cls, v: str) -> str:
-        # Railway injects postgresql:// but asyncpg requires postgresql+asyncpg://
         if v.startswith("postgresql://"):
-            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+            v = v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        v = v.replace("sslmode=", "ssl=")
         return v
 
     jwt_secret_key: str
