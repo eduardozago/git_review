@@ -1,3 +1,5 @@
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
+
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -17,8 +19,12 @@ class Settings(BaseSettings):
     def force_asyncpg_scheme(cls, v: str) -> str:
         if v.startswith("postgresql://"):
             v = v.replace("postgresql://", "postgresql+asyncpg://", 1)
-        v = v.replace("sslmode=", "ssl=")
-        return v
+        parsed = urlparse(v)
+        params = {k: vals[0] for k, vals in parse_qs(parsed.query).items()}
+        if "sslmode" in params:
+            params["ssl"] = params.pop("sslmode")
+        params.pop("channel_binding", None)
+        return urlunparse(parsed._replace(query=urlencode(params)))
 
     jwt_secret_key: str
     jwt_algorithm: str = "HS256"
